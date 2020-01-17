@@ -2,9 +2,9 @@
 
 default:
     suites:
-        greeting_customer:
+        ui_managing_mail_tester:
             contexts:
-                - acme_sylius_example.context.ui.shop.welcome
-
+                - sylius.behat.context.setup.admin_security
+                - synolia_mail_tester_plugin.behat.admin.mail_tester
             filters:
-                tags: "@greeting_customer"
+                tags: '@managing_mail_tester && @ui'
