@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Synolia\SyliusMailTesterPlugin
+        psr4_prefix: Synolia\SyliusMailTesterPlugin

@@ -1,0 +1,3 @@
+sylius_mail_tester_admin:
+    resource: "@SynoliaSyliusMailTesterPlugin/Resources/config/admin_routing.yaml"
+    prefix: /admin
