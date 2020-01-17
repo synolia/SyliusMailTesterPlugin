@@ -1,0 +1,21 @@
+parameters:
+    level: max
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: false
+
+    excludes_analyse:
+        # Makes PHPStan crash
+        - ../src/DependencyInjection/Configuration.php
+        - ../src/Migrations/
+
+        # Test dependencies
+        - ../tests
+
+        # PHPSpec
+        - ../spec
+
+    ignoreErrors:
+        - '/Parameter #1 $configuration of method Symfony\Component\DependencyInjection\Extension\Extension::processConfiguration() expects Symfony\Component\Config\Definition\ConfigurationInterface, Symfony\Component\Config\Definition\ConfigurationInterface|null given./'
+        - '#^Method [\w\\]+Type::render\(\) has parameter \$[\w]+ with no typehint specified.$#'
+        - '#Variable method call on Synolia\\SyliusSchedulerCommandPlugin\\Entity\\ScheduledCommand.#'
+        - '#Cannot call method [a-zA-Z0-9]+\(\) on Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface|null.#'
