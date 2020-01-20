@@ -1,0 +1,13 @@
+services:
+
+    Sylius\Behat\Service\SharedStorageInterface: '@sylius.behat.shared_storage'
+    Sylius\Behat\Service\Resolver\CurrentPageResolverInterface: '@sylius.behat.current_page_resolver'
+    Sylius\Behat\Service\NotificationCheckerInterface: '@sylius.behat.notification_checker'
+
+    synolia_mail_tester_plugin.behat.admin.mail_tester:
+        class: Tests\Synolia\SyliusMailTesterPlugin\Behat\Context\Ui\Admin\MailTesterContext
+        public: true
+        autowire: true
+        arguments:
+            - 'sylius_admin_mail_tester'
+
