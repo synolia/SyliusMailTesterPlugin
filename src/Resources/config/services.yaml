@@ -14,3 +14,5 @@ services:
     # Temporary declare this service public to be used in test without use it yet in code
     Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver:
         public: true
+    Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever:
+        public: true
