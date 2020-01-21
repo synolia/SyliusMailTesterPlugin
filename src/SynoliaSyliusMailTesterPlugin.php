@@ -7,6 +7,7 @@ namespace Synolia\SyliusMailTesterPlugin;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Synolia\SyliusMailTesterPlugin\DependencyInjection\Pass\EmailKeysDataRetrieverCompilerPass;
 use Synolia\SyliusMailTesterPlugin\DependencyInjection\Pass\ResolvableFormTypeResolverCompilerPass;
 
 final class SynoliaSyliusMailTesterPlugin extends Bundle
@@ -21,5 +22,6 @@ final class SynoliaSyliusMailTesterPlugin extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new ResolvableFormTypeResolverCompilerPass());
+        $container->addCompilerPass(new EmailKeysDataRetrieverCompilerPass());
     }
 }
