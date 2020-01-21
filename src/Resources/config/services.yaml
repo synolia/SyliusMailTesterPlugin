@@ -5,7 +5,7 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        public: true
+        public: false
 
     Synolia\SyliusMailTesterPlugin\:
         resource: '../../*'
