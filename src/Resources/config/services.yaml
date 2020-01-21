@@ -12,5 +12,5 @@ services:
         exclude: '../../{Entity,Migrations,SynoliaSyliusMailTesterPlugin.php}'
 
     # Temporary declare this service public to be used in test without use it yet in code
-    Synolia\SyliusMailTesterPlugin\Resolver\FormResolver:
+    Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver:
         public: true
