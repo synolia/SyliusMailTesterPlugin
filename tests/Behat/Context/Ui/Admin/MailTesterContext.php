@@ -7,6 +7,7 @@ namespace Tests\Synolia\SyliusMailTesterPlugin\Behat\Context\Ui\Admin;
 use Behat\Behat\Context\Context;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
+use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 use Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPageInterface;
 use Webmozart\Assert\Assert;
 
@@ -18,10 +19,17 @@ final class MailTesterContext implements Context
     /** @var CurrentPageResolverInterface */
     private $currentPageResolver;
 
-    public function __construct(IndexPageInterface $indexPage, CurrentPageResolverInterface $currentPageResolver)
-    {
+    /** @var EmailKeysDataRetriever */
+    private $emailKeysDataRetriever;
+
+    public function __construct(
+        IndexPageInterface $indexPage,
+        CurrentPageResolverInterface $currentPageResolver,
+        EmailKeysDataRetriever $emailKeysDataRetriever
+    ) {
         $this->indexPage = $indexPage;
         $this->currentPageResolver = $currentPageResolver;
+        $this->emailKeysDataRetriever = $emailKeysDataRetriever;
     }
 
     /**
@@ -83,10 +91,14 @@ final class MailTesterContext implements Context
     }
 
     /**
-     * @When a screenshot should not be made
+     * @Then the subjects should have every subjects
      */
-    public function aScreenshotShouldNotBeMade(): void
+    public function theSubjectsShouldHaveEverySubjects(): void
     {
-        Assert::true(true, true);
+        /** @var IndexPageInterface $currentPage */
+        $currentPage = $this->resolveCurrentPage();
+        foreach ($this->emailKeysDataRetriever->getEmailKeys() as $emailKey) {
+            Assert::contains($currentPage->getSelectorHtml('mail_tester[subjects]'), $emailKey);
+        }
     }
 }

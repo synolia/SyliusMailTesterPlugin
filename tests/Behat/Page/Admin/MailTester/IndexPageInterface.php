@@ -11,4 +11,6 @@ interface IndexPageInterface extends BaseIndexPageInterface
     public function getField(string $field);
 
     public function writeInField(string $text, string $field): void;
+
+    public function getSelectorHtml(string $field): string;
 }

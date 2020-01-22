@@ -14,6 +14,11 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
         return $this->getDocument()->findField($field)->getValue();
     }
 
+    public function getSelectorHtml(string $field): string
+    {
+        return $this->getDocument()->findField($field)->getOuterHtml();
+    }
+
     public function writeInField(string $text, string $field): void
     {
         $field = $this->getDocument()->findField($field);
