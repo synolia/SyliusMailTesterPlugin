@@ -4,14 +4,38 @@ declare(strict_types=1);
 
 namespace Tests\Synolia\SyliusSchedulerCommandPlugin\PHPUnit\DataRetriever;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 
-final class EmailKeysDataRetrieverTest extends KernelTestCase
+final class EmailKeysDataRetrieverTest extends TestCase
 {
-    public function testRetrieveEmailSubjects(): void
+    /**
+     * @dataProvider configurationDataProvider
+     */
+    public function testCreateInstance(array $configuration): void
     {
-        self::bootKernel();
-        $this->assertGreaterThan(0, \count(self::$container->get(EmailKeysDataRetriever::class)->getEmailKeys()));
+        $this->assertIsArray((new EmailKeysDataRetriever($configuration))->getEmailKeys());
+    }
+
+    public function configurationDataProvider(): \Generator
+    {
+        yield 'Empty array' => [[]];
+        yield 'Simple array key/value' => [
+            [
+                'test' => '123',
+                'test2' => '123'
+            ]
+        ];
+        yield 'Advanced array key/value' => [
+            [
+                'test' => [
+                    'test3' => 'my value',
+                    'test4' => [
+                        'test5' => 'another value'
+                    ]
+                ],
+                'test2' => '123'
+            ]
+        ];
     }
 }
