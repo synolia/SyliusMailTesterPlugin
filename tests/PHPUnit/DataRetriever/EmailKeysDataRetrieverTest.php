@@ -12,19 +12,24 @@ final class EmailKeysDataRetrieverTest extends TestCase
     /**
      * @dataProvider configurationDataProvider
      */
-    public function testCreateInstance(array $configuration): void
+    public function testCreateInstance(array $configuration, array $expectedResult): void
     {
         $this->assertIsArray((new EmailKeysDataRetriever($configuration))->getEmailKeys());
+        $this->assertSame(
+            $expectedResult,
+            (new EmailKeysDataRetriever($configuration))->getEmailKeys()
+        );
     }
 
     public function configurationDataProvider(): \Generator
     {
-        yield 'Empty array' => [[]];
+        yield 'Empty array' => [[], []];
         yield 'Simple array key/value' => [
             [
                 'test' => '123',
                 'test2' => '123'
-            ]
+            ],
+            ['test', 'test2']
         ];
         yield 'Advanced array key/value' => [
             [
@@ -35,7 +40,8 @@ final class EmailKeysDataRetrieverTest extends TestCase
                     ]
                 ],
                 'test2' => '123'
-            ]
+            ],
+            ['test', 'test2']
         ];
     }
 }
