@@ -25,7 +25,6 @@ final class SynoliaSyliusMailTesterExtension extends Extension
 
         $container
             ->registerForAutoconfiguration(ResolvableFormTypeInterface::class)
-            ->addTag(ResolvableFormTypeResolverCompilerPass::TAG_ID)
-        ;
+            ->addTag(ResolvableFormTypeResolverCompilerPass::TAG_ID);
     }
 }
