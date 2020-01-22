@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Synolia\SyliusSchedulerCommandPlugin\PHPUnit;
+namespace Tests\Synolia\SyliusSchedulerCommandPlugin\PHPUni\Resolver;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormTypeInterface;
