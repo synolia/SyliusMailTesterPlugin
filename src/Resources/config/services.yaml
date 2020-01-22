@@ -1,2 +1,16 @@
 parameters:
     locale: en_US
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Synolia\SyliusMailTesterPlugin\:
+        resource: '../../*'
+        exclude: '../../{Entity,Migrations,SynoliaSyliusMailTesterPlugin.php}'
+
+    # Temporary declare this service public to be used in test without use it yet in code
+    Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver:
+        public: true

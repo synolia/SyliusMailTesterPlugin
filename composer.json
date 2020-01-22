@@ -48,7 +48,8 @@
     "autoload": {
         "psr-4": {
             "Synolia\\SyliusMailTesterPlugin\\": "src/",
-            "Tests\\Synolia\\SyliusMailTesterPlugin\\": "tests/"
+            "Tests\\Synolia\\SyliusMailTesterPlugin\\": "tests/",
+            "Tests\\Application\\": "tests/Application/src/"
         }
     },
     "autoload-dev": {
