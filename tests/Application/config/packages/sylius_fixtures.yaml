@@ -1,0 +1,16 @@
+sylius_fixtures:
+    suites:
+        default:
+            listeners:
+                orm_purger: ~
+                logger: ~
+
+            fixtures:
+                synolia_mail_tester_shop_user:
+                    options:
+                        random: 4
+                        custom:
+                            -   email: 'resettable-password@example.com'
+                                first_name: 'Resettable'
+                                last_name: 'Password'
+                                password: 'sylius'

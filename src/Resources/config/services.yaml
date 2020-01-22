@@ -9,7 +9,16 @@ services:
 
     Synolia\SyliusMailTesterPlugin\:
         resource: '../../*'
-        exclude: '../../{Entity,Migrations,SynoliaSyliusMailTesterPlugin.php}'
+        exclude: '../../{Fixture,SynoliaSyliusMailTesterPlugin.php}'
+
+    Synolia\SyliusMailTesterPlugin\Fixture\ShopUserFixture:
+        class: Synolia\SyliusMailTesterPlugin\Fixture\ShopUserFixture
+        tags: ['sylius_fixtures.fixture']
+        arguments:
+            $exampleFactory: '@Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory'
+
+    Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory:
+        class: Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory
 
     # Temporary declare this service public to be used in test without use it yet in code
     Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver:
