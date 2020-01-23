@@ -7,12 +7,9 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 use Sylius\Component\Core\Model\Channel;
 use Sylius\Component\Core\Model\ShopUser;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormTypeInterface;
-use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
 
-final class PasswordTokenResetType extends AbstractType implements ResolvableFormTypeInterface
+final class PasswordTokenResetType extends AbstractType
 {
     private const SYLIUS_EMAIL_KEYS = [
         'password_reset',
@@ -37,11 +34,6 @@ final class PasswordTokenResetType extends AbstractType implements ResolvableFor
     public function support(string $emailKey): bool
     {
         return in_array($emailKey, self::SYLIUS_EMAIL_KEYS, true);
-    }
-
-    public function getFormType(string $emailKey): FormTypeInterface
-    {
-        return $this;
     }
 
     public function getCode(): string
