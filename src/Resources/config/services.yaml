@@ -24,7 +24,3 @@ services:
     Synolia\SyliusMailTesterPlugin\Menu\AdminMenuListener:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
-
-    # Temporary declare this service public to be used in test without use it yet in code
-    Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver:
-        public: true

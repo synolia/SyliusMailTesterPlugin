@@ -19,8 +19,26 @@ final class MailTesterType extends AbstractType
         $builder
             ->add('recipient', EmailType::class, ['label' => 'sylius.ui.admin.mail_tester.recipient'])
             ->add('subjects', ChoiceSubjectsType::class)
-            ->add('submit', SubmitType::class, ['attr' => ['class' => 'ui labeled icon primary button'], 'label' => 'sylius.ui.admin.mail_tester.submit'])
-            ->getForm()
         ;
+
+        if (isset($options['data']['subject'])) {
+            $builder->add('subjects', ChoiceSubjectsType::class, ['data' => $options['data']['subject']]);
+        }
+
+        $builder
+            ->add('change_form_subject', SubmitType::class, [
+                'attr' => ['class' => 'ui labeled icon secondary button'],
+                'label' => 'sylius.ui.admin.mail_tester.change_form_subject',
+            ])
+        ;
+
+        if (isset($options['data']['form_subject'])) {
+            $builder
+                ->add('form_subject_choose', get_class($options['data']['form_subject']), ['label' => false])
+                ->add('submit', SubmitType::class, ['attr' => ['class' => 'ui labeled icon primary button'], 'label' => 'sylius.ui.admin.mail_tester.submit'])
+            ;
+        }
+
+        $builder->getForm();
     }
 }

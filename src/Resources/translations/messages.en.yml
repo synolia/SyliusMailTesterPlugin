@@ -9,3 +9,5 @@ sylius:
             mail_tester:
                 recipient: Recipient
                 submit: Submit
+                change_form_subject: Choose subject
+                success: Mail successfully send
