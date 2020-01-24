@@ -43,7 +43,8 @@
         "symfony/lock": "^3.4|^4.3",
         "symfony/web-profiler-bundle": "^3.4|^4.3",
         "symfony/web-server-bundle": "^3.4|^4.3",
-        "symplify/easy-coding-standard": "^6.1"
+        "symplify/easy-coding-standard": "^6.1",
+        "webmozart/assert": "^1.6"
     },
     "prefer-stable": true,
     "autoload": {
