@@ -11,9 +11,7 @@ use Synolia\SyliusMailTesterPlugin\Resolver\NoResolvableFormTypeFoundException;
 
 final class FormTypeResolverTest extends KernelTestCase
 {
-    /**
-     * @var \Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver
-     */
+    /** @var \Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver */
     private $formTypeResolver;
 
     protected function setUp(): void

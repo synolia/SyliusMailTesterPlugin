@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Synolia\SyliusMailTesterPlugin\Resolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Form\FormTypeInterface;
 
 final class FormTypeResolver
 {
     /** @var \Doctrine\Common\Collections\ArrayCollection<int, ResolvableFormTypeInterface> */
     private $formTypes;
 
-    public function getFormType(string $emailKey): FormTypeInterface
+    public function getFormType(string $emailKey): ResolvableFormTypeInterface
     {
         /** @var ResolvableFormTypeInterface $formType */
         foreach ($this->formTypes as $formType) {
