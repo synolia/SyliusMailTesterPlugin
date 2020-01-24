@@ -1,9 +1,4 @@
 sylius:
-    menu:
-        admin:
-            main:
-                configuration:
-                    mail_tester: Mail tester
     ui:
         admin:
             mail_tester:
@@ -11,3 +6,9 @@ sylius:
                 submit: Submit
                 change_form_subject: Choose subject
                 success: Mail successfully send
+                every_subjects: Every subjects
+    menu:
+        admin:
+            main:
+                configuration:
+                    mail_tester: Mail tester

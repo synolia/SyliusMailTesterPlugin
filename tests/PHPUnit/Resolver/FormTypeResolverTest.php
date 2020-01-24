@@ -24,7 +24,7 @@ final class FormTypeResolverTest extends KernelTestCase
 
     public function testResolverFoundSupportedFormType(): void
     {
-        $this->assertInstanceOf(FormTypeInterface::class, $this->formTypeResolver->getFormType('my-dummy-form-type'));
+        $this->assertInstanceOf(FormTypeInterface::class, $this->formTypeResolver->getFormType('my_dummy_form_type'));
     }
 
     public function testResolverDidNotFoundSupportedFormType(): void

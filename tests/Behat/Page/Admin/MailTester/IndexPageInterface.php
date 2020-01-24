@@ -17,5 +17,7 @@ interface IndexPageInterface extends BaseIndexPageInterface
 
     public function writeInField(string $text, string $field): ?NodeElement;
 
+    public function changeSelectValue(string $value, string $select): void;
+
     public function pressButton(string $field): void;
 }
