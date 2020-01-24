@@ -31,12 +31,15 @@ parameters:
         securitychecker: ~
         yamllint: ~
         ecs:
+            config: 'ruleset/easy-coding-standard.yml'
             whitelist_patterns:
                 - src
+                - spec
                 - tests/Behat
-            config: 'ruleset/easy-coding-standard.yml'
+                - tests/PHPUnit
             no-progress-bar: true
             level: strict
+
         phpmnd:
             directory: src
         twigcs:
