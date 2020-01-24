@@ -1,4 +1,9 @@
 sylius:
+    menu:
+        admin:
+            main:
+                configuration:
+                    mail_tester: Mail tester
     ui:
         admin:
             mail_tester:

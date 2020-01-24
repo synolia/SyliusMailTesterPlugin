@@ -14,14 +14,13 @@ final class AdminMenuListener
         $menu = $event->getMenu();
 
         /** @var ItemInterface $newSubmenu */
-        $newSubmenu = $menu
-            ->getChild('configuration');
+        $newSubmenu = $menu->getChild('configuration');
 
         $newSubmenu->addChild('mail-tester', [
                 'route' => 'sylius_admin_mail_tester',
             ])
             ->setAttribute('type', 'link')
             ->setLabel('sylius.menu.admin.main.configuration.mail_tester')
-            ->setLabelAttribute('icon', 'clock');
+            ->setLabelAttribute('icon', 'mail');
     }
 }
