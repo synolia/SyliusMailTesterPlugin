@@ -35,7 +35,7 @@ final class MailTesterType extends AbstractType
                 $builder->add($subject->getCode(), get_class($subject), ['label' => false]);
             }
             $builder->add('submit', SubmitType::class, [
-                'attr' => ['class' => 'ui labeled icon primary button'],
+                'attr' => ['class' => 'ui icon primary button'],
                 'label' => 'sylius.ui.admin.mail_tester.submit', ]
             );
         }
@@ -44,7 +44,7 @@ final class MailTesterType extends AbstractType
             $builder
                 ->add('form_subject_chosen', get_class($options['data']['form_subject']), ['label' => false])
                 ->add('submit', SubmitType::class, [
-                    'attr' => ['class' => 'ui labeled icon primary button'],
+                    'attr' => ['class' => 'ui icon primary button'],
                     'label' => 'sylius.ui.admin.mail_tester.submit', ]
                 );
         }
