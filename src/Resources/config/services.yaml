@@ -1,6 +1,3 @@
-parameters:
-    locale: en_US
-
 services:
     _defaults:
         autowire: true
@@ -9,7 +6,11 @@ services:
 
     Synolia\SyliusMailTesterPlugin\:
         resource: '../../*'
-        exclude: '../../{Fixture,SynoliaSyliusMailTesterPlugin.php}'
+        exclude: '../../{Controller,Fixture,SynoliaSyliusMailTesterPlugin.php}'
+
+    Synolia\SyliusMailTesterPlugin\Controller\:
+        resource: '../../Controller/*'
+        tags: ['controller.service_arguments']
 
     Synolia\SyliusMailTesterPlugin\Fixture\ShopUserFixture:
         class: Synolia\SyliusMailTesterPlugin\Fixture\ShopUserFixture
@@ -19,6 +20,10 @@ services:
 
     Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory:
         class: Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory
+
+    Synolia\SyliusMailTesterPlugin\Menu\AdminMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
 
     # Temporary declare this service public to be used in test without use it yet in code
     Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver:

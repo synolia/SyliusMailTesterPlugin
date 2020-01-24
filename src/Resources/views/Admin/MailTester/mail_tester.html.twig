@@ -1,0 +1,19 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% block title %}{{ 'sylius.ui.edit_order'|trans }} {{ parent() }}{% endblock %}
+
+{% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block content %}
+    {{ form_start(form, {'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+        <div class="ui segment">
+            <input type="hidden" name="_method" value="POST" />
+
+            {{ form_widget(form) }}
+            {{ form_row(form._token) }}
+        </div>
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
