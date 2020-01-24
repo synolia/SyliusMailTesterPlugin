@@ -27,7 +27,7 @@ final class MailTesterType extends AbstractType
 
         $builder
             ->add('change_form_subject', SubmitType::class, [
-                'attr' => ['class' => 'ui labeled icon secondary button'],
+                'attr' => ['class' => 'ui icon secondary button'],
                 'label' => 'sylius.ui.admin.mail_tester.change_form_subject',
             ])
         ;
