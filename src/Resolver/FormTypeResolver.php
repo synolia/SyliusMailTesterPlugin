@@ -14,6 +14,10 @@ final class FormTypeResolver
 
     public function getFormType(string $emailKey): FormTypeInterface
     {
+        if (null === $this->formTypes) {
+            $this->formTypes = new ArrayCollection();
+        }
+
         /** @var ResolvableFormTypeInterface $formType */
         foreach ($this->formTypes as $formType) {
             if ($formType->support($emailKey)) {
