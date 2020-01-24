@@ -1,9 +1,4 @@
 sylius:
-    menu:
-        admin:
-            main:
-                configuration:
-                    mail_tester: Essayer les mails
     ui:
         admin:
             mail_tester:
@@ -11,3 +6,9 @@ sylius:
                 submit: Envoyer
                 change_form_subject: Choisir le sujet
                 success: Envoie du mail avec succès
+                every_subjects: Tout les sujets
+    menu:
+        admin:
+            main:
+                configuration:
+                    mail_tester: Essayer les mails

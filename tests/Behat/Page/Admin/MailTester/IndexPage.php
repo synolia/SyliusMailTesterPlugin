@@ -33,6 +33,12 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
         return $field;
     }
 
+    public function changeSelectValue(string $value, string $select): void
+    {
+        $field = $this->getDocument()->findField($select);
+        $field->selectOption($value);
+    }
+
     public function pressButton(string $field): void
     {
         $this->getDocument()->pressButton($field);

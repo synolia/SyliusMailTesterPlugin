@@ -11,6 +11,8 @@ use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 
 final class ChoiceSubjectsType extends AbstractType
 {
+    public const EVERY_SUBJECTS = 'every_subjects';
+
     /** @var EmailKeysDataRetriever */
     private $emailKeysDataRetriever;
 
@@ -24,7 +26,7 @@ final class ChoiceSubjectsType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $emailKeys = [];
+        $emailKeys = ['sylius.ui.admin.mail_tester.every_subjects' => self::EVERY_SUBJECTS];
         foreach ($this->emailKeysDataRetriever->getEmailKeys() as $emailKey) {
             $emailKeys[$emailKey] = $emailKey;
         }

@@ -9,6 +9,7 @@ use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 use Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPageInterface;
 use Webmozart\Assert\Assert;
@@ -27,16 +28,21 @@ final class MailTesterContext implements Context
     /** @var NotificationCheckerInterface */
     private $notificationChecker;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     public function __construct(
         IndexPageInterface $indexPage,
         CurrentPageResolverInterface $currentPageResolver,
         EmailKeysDataRetriever $emailKeysDataRetriever,
-        NotificationCheckerInterface $notificationChecker
+        NotificationCheckerInterface $notificationChecker,
+        TranslatorInterface $translator
     ) {
         $this->indexPage = $indexPage;
         $this->currentPageResolver = $currentPageResolver;
         $this->emailKeysDataRetriever = $emailKeysDataRetriever;
         $this->notificationChecker = $notificationChecker;
+        $this->translator = $translator;
     }
 
     /**
@@ -130,6 +136,16 @@ final class MailTesterContext implements Context
     }
 
     /**
+     * @Then change value for :value in select :select
+     */
+    public function changeValueForInSelect(string $value, string $select): void
+    {
+        /** @var IndexPageInterface $currentPage */
+        $currentPage = $this->resolveCurrentPage();
+        $currentPage->changeSelectValue($value, $select);
+    }
+
+    /**
      * @Then the mail tester field :field should have :text as value
      */
     public function theMailTesterFiledShouldHaveAsValue(string $field, string $text): void
@@ -157,7 +173,7 @@ final class MailTesterContext implements Context
     public function theEmailHasBeenSuccessfullySend(): void
     {
         $this->notificationChecker->checkNotification(
-            'sylius.ui.admin.mail_tester.success',
+            $this->translator->trans('sylius.ui.admin.mail_tester.success'),
             NotificationType::success()
         );
     }
