@@ -6,7 +6,7 @@ namespace Synolia\SyliusMailTesterPlugin\DataRetriever;
 
 final class EmailKeysDataRetriever
 {
-    /** @var array<int, string> */
+    /** @var array<int, string>|null */
     private $emailKeys;
 
     public function __construct(array $configuration)

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Synolia\SyliusMailTesterPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Element\NodeElement;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 use Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPageInterface;
 use Webmozart\Assert\Assert;
@@ -80,7 +81,13 @@ final class MailTesterContext implements Context
     {
         /** @var IndexPageInterface $currentPage */
         $currentPage = $this->resolveCurrentPage();
-        $mailTesterSubjectValue = $currentPage->writeInField($subject, 'mail_tester[subjects]')->getValue();
+        /** @var NodeElement|null $mailTesterSubject */
+        $mailTesterSubject = $currentPage->writeInField($subject, 'mail_tester[subjects]');
+        $mailTesterSubjectValue = '';
+        if ($mailTesterSubject !== null) {
+            /** @var string $mailTesterSubjectValue */
+            $mailTesterSubjectValue = $mailTesterSubject->getValue();
+        }
         Assert::contains($subject, $mailTesterSubjectValue);
     }
 

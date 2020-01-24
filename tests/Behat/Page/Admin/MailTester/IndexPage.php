@@ -17,17 +17,31 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
     /** @return string|bool|array */
     public function getFieldValue(string $field)
     {
-        return $this->getDocument()->findField($field)->getValue();
+        $field = $this->getDocument()->findField($field);
+        if ($field === null) {
+            return '';
+        }
+
+        return $field->getValue();
     }
 
     public function getSelectorHtml(string $field): string
     {
-        return $this->getDocument()->findField($field)->getOuterHtml();
+        $field = $this->getDocument()->findField($field);
+        if ($field === null) {
+            return '';
+        }
+
+        return $field->getOuterHtml();
     }
 
     public function writeInField(string $text, string $field): ?NodeElement
     {
         $field = $this->getDocument()->findField($field);
+        if ($field === null) {
+            return null;
+        }
+
         $field->setValue($text);
 
         return $field;
@@ -36,6 +50,10 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
     public function changeSelectValue(string $value, string $select): void
     {
         $field = $this->getDocument()->findField($select);
+        if ($field === null) {
+            return;
+        }
+
         $field->selectOption($value);
     }
 

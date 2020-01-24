@@ -15,9 +15,12 @@ final class ResolvableFormTypeResolverCompilerPassTest extends KernelTestCase
         self::bootKernel();
 
         $formTypeResolver = self::$container->get(FormTypeResolver::class);
+        self::assertNotNull($formTypeResolver);
         $reflectionProvider = new \ReflectionClass($formTypeResolver);
         $formTypesProperty = $reflectionProvider->getProperty('formTypes');
+        self::assertNotNull($formTypesProperty);
         $formTypesProperty->setAccessible(true);
+        /** @var array $formTypes */
         $formTypes = $formTypesProperty->getValue($formTypeResolver);
 
         self::assertIsIterable($formTypes);

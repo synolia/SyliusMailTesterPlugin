@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Synolia\SyliusSchedulerCommandPlugin\PHPUni\Resolver;
+namespace Tests\Synolia\SyliusMailTesterPlugin\PHPUnit\Resolver;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -19,7 +19,10 @@ final class FormTypeResolverTest extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
-        $this->formTypeResolver = self::$container->get(FormTypeResolver::class);
+        $formTypeResolver = self::$container->get(FormTypeResolver::class);
+        self::assertInstanceOf(FormTypeResolver::class, $formTypeResolver);
+
+        $this->formTypeResolver = $formTypeResolver;
     }
 
     public function testResolverFoundSupportedFormType(): void
