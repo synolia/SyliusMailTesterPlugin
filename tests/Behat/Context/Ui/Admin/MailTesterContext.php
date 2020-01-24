@@ -6,6 +6,8 @@ namespace Tests\Synolia\SyliusMailTesterPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
+use Sylius\Behat\NotificationType;
+use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 use Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPageInterface;
@@ -22,14 +24,19 @@ final class MailTesterContext implements Context
     /** @var EmailKeysDataRetriever */
     private $emailKeysDataRetriever;
 
+    /** @var NotificationCheckerInterface */
+    private $notificationChecker;
+
     public function __construct(
         IndexPageInterface $indexPage,
         CurrentPageResolverInterface $currentPageResolver,
-        EmailKeysDataRetriever $emailKeysDataRetriever
+        EmailKeysDataRetriever $emailKeysDataRetriever,
+        NotificationCheckerInterface $notificationChecker
     ) {
         $this->indexPage = $indexPage;
         $this->currentPageResolver = $currentPageResolver;
         $this->emailKeysDataRetriever = $emailKeysDataRetriever;
+        $this->notificationChecker = $notificationChecker;
     }
 
     /**
@@ -57,7 +64,49 @@ final class MailTesterContext implements Context
     {
         /** @var IndexPageInterface $currentPage */
         $currentPage = $this->resolveCurrentPage();
-        Assert::isEmpty($currentPage->getField($field));
+        Assert::isEmpty($currentPage->getFieldValue($field));
+    }
+
+    /**
+     * @Then I choose the subject :subject
+     */
+    public function iChooseTheSubject(string $subject): void
+    {
+        /** @var IndexPageInterface $currentPage */
+        $currentPage = $this->resolveCurrentPage();
+        $mailTesterSubjectValue = $currentPage->writeInField($subject, 'mail_tester[subjects]')->getValue();
+        Assert::contains($subject, $mailTesterSubjectValue);
+    }
+
+    /**
+     * @Then the subject chosen in the form should be :subject
+     */
+    public function theSubjectChooseInTheFormShouldBe(string $subject): void
+    {
+        /** @var IndexPageInterface $currentPage */
+        $currentPage = $this->resolveCurrentPage();
+        $mailTesterSubjectValue = $currentPage->getFieldValue('mail_tester[subjects]');
+        Assert::eq($subject, $mailTesterSubjectValue);
+    }
+
+    /**
+     * @Then I submit the subject
+     */
+    public function iSubmitTheSubject(): void
+    {
+        /** @var IndexPageInterface $currentPage */
+        $currentPage = $this->resolveCurrentPage();
+        $currentPage->pressButton('mail_tester[change_form_subject]');
+    }
+
+    /**
+     * @Then I submit the email
+     */
+    public function iSubmitTheEmail(): void
+    {
+        /** @var IndexPageInterface $currentPage */
+        $currentPage = $this->resolveCurrentPage();
+        $currentPage->pressButton('mail_tester[submit]');
     }
 
     /**
@@ -67,7 +116,7 @@ final class MailTesterContext implements Context
     {
         /** @var IndexPageInterface $currentPage */
         $currentPage = $this->resolveCurrentPage();
-        Assert::notEmpty($currentPage->getField($field));
+        Assert::notEmpty($currentPage->getFieldValue($field));
     }
 
     /**
@@ -87,7 +136,7 @@ final class MailTesterContext implements Context
     {
         /** @var IndexPageInterface $currentPage */
         $currentPage = $this->resolveCurrentPage();
-        Assert::contains($currentPage->getField($field), $text);
+        Assert::contains($currentPage->getFieldValue($field), $text);
     }
 
     /**
@@ -100,5 +149,16 @@ final class MailTesterContext implements Context
         foreach ($this->emailKeysDataRetriever->getEmailKeys() as $emailKey) {
             Assert::contains($currentPage->getSelectorHtml('mail_tester[subjects]'), $emailKey);
         }
+    }
+
+    /**
+     * @Then the email has been successfully send
+     */
+    public function theEmailHasBeenSuccessfullySend(): void
+    {
+        $this->notificationChecker->checkNotification(
+            'sylius.ui.admin.mail_tester.success',
+            NotificationType::success()
+        );
     }
 }
