@@ -49,12 +49,6 @@
         resource: "@SynoliaSyliusMailTesterPlugin/Resources/config/admin_routing.yaml"
         prefix: /admin
     ```
-4. Copy plugin migrations to your migrations directory (e.g. `src/Migrations`) and apply them to your database:
-
-    ```shell script
-    cp -R vendor/synolia/sylius-mail-tester-plugin/src/Migrations/* src/Migrations
-    bin/console doctrine:migrations:migrate
-    ```
 
 ## Usage
 
