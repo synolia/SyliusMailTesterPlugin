@@ -3,7 +3,7 @@ sylius:
         admin:
             mail_tester:
                 recipient: Recipient
-                submit: Submit
+                submit: Send
                 change_form_subject: Choose subject
                 success: Mail successfully send
                 every_subjects: Every subjects

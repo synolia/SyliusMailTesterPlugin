@@ -32,7 +32,11 @@ final class MailTesterType extends AbstractType
 
         if (isset($options['data']['form_every_subjects'])) {
             foreach ($options['data']['form_every_subjects'] as $subject) {
-                $builder->add($subject->getCode(), get_class($subject), ['label' => false]);
+                $builder->add(
+                    $subject->getCode(),
+                    get_class($subject),
+                    ['label_attr' => ['class' => 'ui massive label']]
+                );
             }
             $builder->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'ui icon primary button'],
