@@ -11,6 +11,11 @@ final class FormTypeResolver
     /** @var \Doctrine\Common\Collections\ArrayCollection<int, ResolvableFormTypeInterface> */
     private $formTypes;
 
+    public function __construct()
+    {
+        $this->formTypes = new ArrayCollection();
+    }
+
     public function getFormType(string $emailKey): ResolvableFormTypeInterface
     {
         if (null === $this->formTypes) {
@@ -37,6 +42,7 @@ final class FormTypeResolver
         if (null === $this->formTypes) {
             $this->formTypes = new ArrayCollection();
         }
+
         if (false === $this->formTypes->contains($resolvableForm)) {
             $this->formTypes->add($resolvableForm);
         }

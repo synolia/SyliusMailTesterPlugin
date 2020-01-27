@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Synolia\SyliusSchedulerCommandPlugin\PHPUnit\DataRetriever;
+namespace Tests\Synolia\SyliusMailTesterPlugin\PHPUnit\DataRetriever;
 
 use PHPUnit\Framework\TestCase;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;

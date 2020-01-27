@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\Form\Type\AbstractType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\ChoiceSubjectsType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\MailTesterType;
@@ -36,6 +36,7 @@ final class MailTesterController extends AbstractController
 
     public function mailTester(Request $request, SenderInterface $sender): Response
     {
+        /** @var array $mailTester */
         $mailTester = $request->get('mail_tester');
 
         $form = $this->createForm(MailTesterType::class);

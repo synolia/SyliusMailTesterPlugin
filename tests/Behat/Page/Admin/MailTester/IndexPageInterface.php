@@ -11,6 +11,7 @@ interface IndexPageInterface extends BaseIndexPageInterface
 {
     public function getField(string $field): ?NodeElement;
 
+    /** @return string|bool|array */
     public function getFieldValue(string $field);
 
     public function getSelectorHtml(string $field): string;
