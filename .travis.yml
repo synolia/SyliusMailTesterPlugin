@@ -19,6 +19,10 @@ env:
 jobs:
     allow_failures:
         - env: DEPENDENCY_VERSIONS="sylius/sylius:dev-master"
+    exclude:
+        # sylius/sylius:dev-master requires php ^7.3
+        - env: DEPENDENCY_VERSIONS="sylius/sylius:dev-master"
+          php: 7.2
 
 cache:
     yarn: true
