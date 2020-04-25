@@ -12,9 +12,7 @@
     <a href="https://packagist.org/packages/synolia/sylius-mail-tester-plugin" title="Version" target="_blank">
         <img src="https://img.shields.io/packagist/v/synolia/sylius-mail-tester-plugin.svg" />
     </a>
-    <a href="https://travis-ci.com/synolia/SyliusMailTesterPlugin" title="Build status" target="_blank">
-        <img src="https://api.travis-ci.com/synolia/SyliusMailTesterPlugin.svg" />
-    </a>
+    ![Tests](https://github.com/synolia/SyliusMailTesterPlugin/workflows/Tests/badge.svg?branch=master)
     <a href="https://packagist.org/packages/synolia/sylius-mail-tester-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/synolia/sylius-mail-tester-plugin/downloads" />
     </a>

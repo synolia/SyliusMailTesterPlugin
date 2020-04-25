@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Synolia\SyliusMailTesterPlugin\PHPUnit\DependencyInjection\Pass;
 
+use PHPUnit\Framework\Assert;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 
@@ -13,12 +14,13 @@ final class EmailKeysDataRetrieverCompilerPassTest extends KernelTestCase
     {
         self::bootKernel();
 
+        /** @var EmailKeysDataRetriever $emailKeysDataRetriever */
         $emailKeysDataRetriever = self::$container->get(EmailKeysDataRetriever::class);
         self::assertNotNull($emailKeysDataRetriever);
         /** @var array $emailKeys */
         $emailKeys = $emailKeysDataRetriever->getEmailKeys();
 
-        self::assertIsIterable($emailKeys);
+        Assert::assertIsIterable($emailKeys);
         self::assertGreaterThan(0, \count($emailKeys));
     }
 }

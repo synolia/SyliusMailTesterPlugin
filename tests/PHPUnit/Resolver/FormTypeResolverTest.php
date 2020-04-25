@@ -19,6 +19,7 @@ final class FormTypeResolverTest extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
+        /** @var FormTypeResolver $formTypeResolver */
         $formTypeResolver = self::$container->get(FormTypeResolver::class);
         self::assertInstanceOf(FormTypeResolver::class, $formTypeResolver);
 
@@ -27,7 +28,7 @@ final class FormTypeResolverTest extends KernelTestCase
 
     public function testResolverFoundSupportedFormType(): void
     {
-        $this->assertInstanceOf(FormTypeInterface::class, $this->formTypeResolver->getFormType('my_dummy_form_type'));
+        self::assertInstanceOf(FormTypeInterface::class, $this->formTypeResolver->getFormType('my_dummy_form_type'));
     }
 
     public function testResolverDidNotFoundSupportedFormType(): void

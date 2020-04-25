@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Synolia\SyliusMailTesterPlugin\PHPUnit\DataRetriever;
 
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 
@@ -14,8 +15,8 @@ final class EmailKeysDataRetrieverTest extends TestCase
      */
     public function testCreateInstance(array $configuration, array $expectedResult): void
     {
-        $this->assertIsArray((new EmailKeysDataRetriever($configuration))->getEmailKeys());
-        $this->assertSame(
+        Assert::assertIsArray((new EmailKeysDataRetriever($configuration))->getEmailKeys());
+        self::assertSame(
             $expectedResult,
             (new EmailKeysDataRetriever($configuration))->getEmailKeys()
         );
