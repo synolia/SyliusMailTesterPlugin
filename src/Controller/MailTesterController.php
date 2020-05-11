@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Controller;
 
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -27,11 +28,19 @@ final class MailTesterController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
-    public function __construct(FormTypeResolver $formTypeResolver, FlashBagInterface $flashBag, TranslatorInterface $translator)
-    {
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
+    public function __construct(
+        FormTypeResolver $formTypeResolver,
+        FlashBagInterface $flashBag,
+        TranslatorInterface $translator,
+        ChannelContextInterface $channelContext
+    ) {
         $this->formTypeResolver = $formTypeResolver;
         $this->flashBag = $flashBag;
         $this->translator = $translator;
+        $this->channelContext = $channelContext;
     }
 
     public function mailTester(Request $request, SenderInterface $sender): Response
@@ -75,14 +84,16 @@ final class MailTesterController extends AbstractController
     {
         try {
             $this->flashBag->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
+            $formData = $form->getData();
+
             if ($mailTester['subjects'] === ChoiceSubjectsType::EVERY_SUBJECTS) {
                 /** @var AbstractType $formSubject */
                 foreach ($this->formTypeResolver->getAllFormTypes() as $formSubject) {
-                    $sender->send($formSubject->getCode(), [$form->getData()['recipient']], $form->getData()[$formSubject->getCode()]);
+                    $sender->send($formSubject->getCode(), [$formData['recipient']], $this->getMailData($form, $formSubject->getCode()));
                 }
             }
             if ($mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {
-                $sender->send($form->getData()['subjects'], [$form->getData()['recipient']], $form->getData()['form_subject_chosen']);
+                $sender->send($formData['subjects'], [$formData['recipient']], $this->getMailData($form, 'form_subject_chosen'));
             }
         } catch (\Swift_RfcComplianceException $exception) {
             $this->flashBag->add('error', $exception->getMessage());
@@ -98,5 +109,19 @@ final class MailTesterController extends AbstractController
         ]);
 
         return $form;
+    }
+
+    private function getMailData(FormInterface $form, string $type): array
+    {
+        $emailData = [];
+
+        if ($form->has($type)) {
+            $emailData = $form->getData()[$type];
+        }
+
+        $emailData['localeCode'] = 'en_US';
+        $emailData['channel'] = $this->channelContext->getChannel();
+
+        return $emailData;
     }
 }

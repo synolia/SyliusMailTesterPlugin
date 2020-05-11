@@ -60,13 +60,13 @@ jobs:
               run: composer update ${{ matrix.prefer }} --no-progress --no-scripts
 
             - name: ECS - Run
-              run: (test -f ruleset/easy-coding-standard.yml && vendor/bin/ecs check src/ tests/Behat/ --no-progress-bar -c ruleset/easy-coding-standard.yml) || echo Ecs does not config, skipping step
+              run: (test -f ruleset/easy-coding-standard.yml && vendor/bin/ecs check src/ tests/Behat/ --no-progress-bar -c ruleset/easy-coding-standard.yml) || echo Ecs ruleset file does not exist, skipping step
 
             - name: PHPStan - Run
-              run: (test -f ruleset/phpstan.neon && vendor/bin/phpstan analyse -c ruleset/phpstan.neon src/) || echo PHPStan does not config, skipping step
+              run: (test -f ruleset/phpstan.neon && vendor/bin/phpstan analyse -c ruleset/phpstan.neon src/) || echo PHPStan ruleset file does not exist, skipping step
 
             - name: GrumPHP - Run
-              run: (test -f grumphp.yml && vendor/bin/grumphp run) || echo Grumphp does not config, skipping step
+              run: (test -f grumphp.yml && vendor/bin/grumphp run) || echo Grumphp ruleset file does not exist, skipping step
 
 
     sylius:
@@ -74,11 +74,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [7.2, 7.3, 7.4]
-                sylius: ['~1.6.0', '~1.7.0']
-                exclude:
-                    - php: 7.2
-                      sylius: '~1.7.0'
+                php: [7.2, 7.3]
+                sylius: ['~1.6.0']
 
         env:
             APP_ENV: test
@@ -136,6 +133,10 @@ jobs:
               working-directory: ./sylius
               run: composer req "${{ env.package-name }}:^1" --prefer-source
 
+            - name: Composer - Install PHPUnit 7.5
+              working-directory: ./sylius
+              run: wget https://phar.phpunit.de/phpunit-7.5.phar
+
             - name: Sylius - Init database
               working-directory: ./sylius
               run: php bin/console doctrine:database:create --if-not-exists
@@ -144,13 +145,23 @@ jobs:
               working-directory: ./sylius
               run: php bin/console doctrine:migr:migr -n
 
+            - name: Sylius - Copy packages config
+              working-directory: ./sylius
+              run: cp ../plugin/src/Resources/config/test/* config/packages
+
+            - name: Sylius - Copy Source files
+              working-directory: ./sylius
+              run: |
+                  cp -r ../plugin/tests/Application/src/* src
+                  find src -type f -name '*.php' -exec sed -i 's#namespace Tests\\Application#namespace App#g' {} \;
+
             - name: Sylius - Install
               working-directory: ./sylius
               run: php bin/console sylius:install -n -s default
 
-            - name: Plugin - Update dependencies
-              working-directory: ./plugin
-              run: composer update --no-progress
+            - name: Sylius - Assets
+              working-directory: ./sylius
+              run: yarn install && yarn build
 
             - name: PHPUnit - Configure
               working-directory: ./sylius
@@ -160,9 +171,9 @@ jobs:
                   sed -i "s#<directory>tests</directory>#<directory>./vendor/${{ env.package-name }}</directory>#g" phpunit.xml
                   sed -i "s#/tests/Application/AppKernel.php#src/Kernel.php#g" phpunit.xml
 
-            #- name: PHPunit
-            #  working-directory: ./sylius
-            #  run: ./vendor/bin/phpunit
+            - name: PHPunit
+              working-directory: ./sylius
+              run: php phpunit-7.5.phar
 
             - name: Behat - Configure display
               working-directory: ./sylius
