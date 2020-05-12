@@ -119,8 +119,8 @@ final class MailTesterController extends AbstractController
             $emailData = $form->getData()[$type];
         }
 
-        $emailData['localeCode'] = 'en_US';
-        $emailData['channel'] = $this->channelContext->getChannel();
+        $emailData['localeCode'] = $form->get('localeCode')->getData()->getCode();
+        $emailData['channel'] = $form->get('channel')->getData();
 
         return $emailData;
     }

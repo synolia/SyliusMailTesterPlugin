@@ -15,6 +15,8 @@
             <input type="hidden" name="_method" value="POST" />
             {{ form_row(form.recipient) }}
             {{ form_row(form.subjects) }}
+            {{ form_row(form.localeCode) }}
+            {{ form_row(form.channel) }}
             {{ form_row(form.change_form_subject, {'attr': {'style': 'margin-bottom: 20px'}}) }}
 
             {{ form_widget(form) }}

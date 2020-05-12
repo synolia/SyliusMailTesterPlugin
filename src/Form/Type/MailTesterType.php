@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
+use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
+use Sylius\Bundle\LocaleBundle\Form\Type\LocaleChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,6 +21,11 @@ final class MailTesterType extends AbstractType
         $builder
             ->add('recipient', EmailType::class, ['label' => 'sylius.ui.admin.mail_tester.recipient'])
             ->add('subjects', ChoiceSubjectsType::class)
+            ->add('localeCode', LocaleChoiceType::class, [
+                'placeholder' => null,
+                'label' => 'sylius.form.locale.name',
+            ])
+            ->add('channel', ChannelChoiceType::class)
         ;
 
         if (isset($options['data']['subject'])) {
@@ -26,9 +33,9 @@ final class MailTesterType extends AbstractType
         }
 
         $builder->add('change_form_subject', SubmitType::class, [
-                'attr' => ['class' => 'ui icon secondary button'],
-                'label' => 'sylius.ui.admin.mail_tester.change_form_subject',
-            ]);
+            'attr' => ['class' => 'ui icon secondary button'],
+            'label' => 'sylius.ui.admin.mail_tester.change_form_subject',
+        ]);
 
         if (isset($options['data']['form_every_subjects'])) {
             foreach ($options['data']['form_every_subjects'] as $subject) {
