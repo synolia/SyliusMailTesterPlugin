@@ -22,7 +22,13 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
             return '';
         }
 
-        return $field->getValue();
+        /** @var string|bool|array|null $value */
+        $value = $field->getValue();
+        if ($value === null) {
+            return '';
+        }
+
+        return $value;
     }
 
     public function getSelectorHtml(string $field): string

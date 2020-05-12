@@ -1,0 +1,2 @@
+imports:
+    - { resource: "@SynoliaSyliusMailTesterPlugin/Resources/config/test/sylius_fixtures.yaml" }

@@ -1,0 +1,7 @@
+sylius_mailer:
+    emails:
+        verification_token:
+            enabled: false
+        my_dummy_form_type:
+            subject: dummy.test
+            template: "@SyliusShop/Email/contactRequest.html.twig"
