@@ -46,7 +46,7 @@ final class MailTesterController extends AbstractController
     public function mailTester(Request $request, SenderInterface $sender): Response
     {
         /** @var array $mailTester */
-        $mailTester = $request->get('mail_tester');
+        $mailTester = $request->get('mail_tester', ['subjects' => null]);
 
         $form = $this->createForm(MailTesterType::class);
         if ($mailTester['subjects'] !== null && $mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {
