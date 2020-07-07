@@ -9,7 +9,7 @@
         "fzaninotto/faker": "^1.6",
         "sylius/sylius": "^1.6",
         "symfony/framework-bundle": "^4.4",
-        "symfony/contracts": "^1.1|^2.0"
+        "symfony/service-contracts": "^1.1|^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.4",
