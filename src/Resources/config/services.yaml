@@ -3,6 +3,11 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            string $syliusOrderClass: '%sylius.model.order.class%'
+            string $syliusChannelClass: '%sylius.model.channel.class%'
+            string $syliusShopUserClass: '%sylius.model.shop_user.class%'
+            string $syliusShipmentClass: '%sylius.model.shipment.class%'
 
     Synolia\SyliusMailTesterPlugin\:
         resource: '../../*'
