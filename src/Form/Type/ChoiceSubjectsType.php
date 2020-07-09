@@ -7,16 +7,16 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
+use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetrieverInterface;
 
 final class ChoiceSubjectsType extends AbstractType
 {
     public const EVERY_SUBJECTS = 'every_subjects';
 
-    /** @var EmailKeysDataRetriever */
+    /** @var EmailKeysDataRetrieverInterface */
     private $emailKeysDataRetriever;
 
-    public function __construct(EmailKeysDataRetriever $emailKeysDataRetriever)
+    public function __construct(EmailKeysDataRetrieverInterface $emailKeysDataRetriever)
     {
         $this->emailKeysDataRetriever = $emailKeysDataRetriever;
     }
