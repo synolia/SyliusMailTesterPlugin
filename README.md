@@ -1,3 +1,8 @@
+[![License](https://img.shields.io/packagist/l/synolia/sylius-mail-tester-plugin.svg)](https://github.com/synolia/SyliusMailTesterPlugin/blob/master/LICENSE)
+![Tests](https://github.com/synolia/SyliusMailTesterPlugin/workflows/Tests/badge.svg?branch=master)
+[![Version](https://img.shields.io/packagist/v/synolia/sylius-mail-tester-plugin.svg)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
+[![Total Downloads](https://poser.pugx.org/synolia/sylius-mail-tester-plugin/downloads)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
+
 <p align="center">
     <a href="https://sylius.com" target="_blank">
         <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
@@ -5,18 +10,7 @@
 </p>
 
 <h1 align="center">Mail Tester Plugin</h1>
-<p align="center">
-    <a href="https://packagist.org/packages/synolia/sylius-mail-tester-plugin" title="License" target="_blank">
-        <img src="https://img.shields.io/packagist/l/synolia/sylius-mail-tester-plugin.svg" />
-    </a>
-    <a href="https://packagist.org/packages/synolia/sylius-mail-tester-plugin" title="Version" target="_blank">
-        <img src="https://img.shields.io/packagist/v/synolia/sylius-mail-tester-plugin.svg" />
-    </a>
-    ![Tests](https://github.com/synolia/SyliusMailTesterPlugin/workflows/Tests/badge.svg?branch=master)
-    <a href="https://packagist.org/packages/synolia/sylius-mail-tester-plugin" title="Total Downloads" target="_blank">
-        <img src="https://poser.pugx.org/synolia/sylius-mail-tester-plugin/downloads" />
-    </a>
-</p>
+
 <p align="center">Test how your emails are rendered by sending them to your email from your Sylius admin panel.</p>
 
 ![Capture](/etc/capture.png "Capture")
