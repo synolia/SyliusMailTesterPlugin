@@ -15,14 +15,10 @@ final class VerificationTokenType extends AbstractType
     protected static $syliusEmailKey = 'verification_token';
 
     /** @var string */
-    private $syliusChannelClass;
-
-    /** @var string */
     private $syliusShopUserClass;
 
-    public function __construct(string $syliusChannelClass, string $syliusShopUserClass)
+    public function __construct(string $syliusShopUserClass)
     {
-        $this->syliusChannelClass = $syliusChannelClass;
         $this->syliusShopUserClass = $syliusShopUserClass;
     }
 
@@ -31,9 +27,6 @@ final class VerificationTokenType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('channel', EntityType::class, [
-                'class' => $this->syliusChannelClass,
-            ])
             ->add('user', EntityType::class, [
                 'class' => $this->syliusShopUserClass,
                 'query_builder' => function (EntityRepository $entityRepository): QueryBuilder {

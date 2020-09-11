@@ -12,3 +12,8 @@ sylius:
             main:
                 configuration:
                     mail_tester: Mail tester
+
+synolia_mail_tester:
+    form:
+        locale: Locale
+        channel: Channel

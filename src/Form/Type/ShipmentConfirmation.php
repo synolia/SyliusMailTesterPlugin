@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Webmozart\Assert\Assert;
 
 final class ShipmentConfirmation extends AbstractType
 {
@@ -35,6 +37,17 @@ final class ShipmentConfirmation extends AbstractType
             ])
             ->add('shipment', EntityType::class, [
                 'class' => $this->syliusShipmentClass,
+                'choice_label' => static function (ShipmentInterface $shipment): string {
+                    $order = $shipment->getOrder();
+                    Assert::notNull($order);
+
+                    return sprintf(
+                        '%s / order: %s, tracking: %s',
+                        $shipment->getId(),
+                        $order->getNumber(),
+                        $shipment->getTracking() ?? 'NOT SET'
+                    );
+                },
             ])
         ;
     }

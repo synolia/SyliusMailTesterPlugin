@@ -23,9 +23,11 @@ final class MailTesterType extends AbstractType
             ->add('subjects', ChoiceSubjectsType::class)
             ->add('localeCode', LocaleChoiceType::class, [
                 'placeholder' => null,
-                'label' => 'sylius.form.locale.name',
+                'label' => 'synolia_mail_tester.form.locale',
             ])
-            ->add('channel', ChannelChoiceType::class)
+            ->add('channel', ChannelChoiceType::class, [
+                'label' => 'synolia_mail_tester.form.channel',
+            ])
         ;
 
         if (isset($options['data']['subject'])) {
