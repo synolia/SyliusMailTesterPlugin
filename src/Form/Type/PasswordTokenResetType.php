@@ -9,9 +9,9 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-final class PasswordTokenResetType extends AbstractType
+final class PasswordTokenResetType extends AbstractMultipleKeysType
 {
-    private const SYLIUS_EMAIL_KEYS = [
+    protected static $syliusEmailKeys = [
         'password_reset',
         'reset_password_token',
         'reset_password_pin',
@@ -38,15 +38,5 @@ final class PasswordTokenResetType extends AbstractType
                 },
             ])
         ;
-    }
-
-    public function support(string $emailKey): bool
-    {
-        return in_array($emailKey, self::SYLIUS_EMAIL_KEYS, true);
-    }
-
-    public function getCode(): string
-    {
-        return self::SYLIUS_EMAIL_KEYS[0];
     }
 }
