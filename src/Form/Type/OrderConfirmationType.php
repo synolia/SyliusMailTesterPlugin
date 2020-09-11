@@ -7,10 +7,13 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-final class OrderConfirmationType extends AbstractType
+final class OrderConfirmationType extends AbstractMultipleKeysType
 {
     /** @var string */
-    protected static $syliusEmailKey = 'order_confirmation';
+    protected static $syliusEmailKeys = [
+        'order_confirmation',
+        'order_confirmation_resent',
+    ];
 
     /** @var string */
     private $syliusOrderClass;
