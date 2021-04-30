@@ -29,7 +29,6 @@ grumphp:
         ecs:
             config: 'ruleset/ecs.php'
             no-progress-bar: true
-            level: strict
         phpmnd:
             directory: src
         twigcs:

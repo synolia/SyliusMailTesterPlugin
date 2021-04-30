@@ -90,13 +90,13 @@ jobs:
             fail-fast: false
             matrix:
                 php: [7.3, 7.4]
-                sylius: [1.8.*, 1.9.*]
+                sylius: [^1.8.4, ^1.9.0]
                 symfony: [^4.4, ^5.2]
                 node: [10.x]
                 exclude:
-                    - sylius: 1.8.*
+                    - sylius: ^1.8.4
                       symfony: ^5.2
-                    - sylius: 1.9.*
+                    - sylius: ^1.9.0
                       symfony: ^4.4
 
         env:
@@ -138,10 +138,6 @@ jobs:
               run: mkdir -p /home/runner/.composer/cache
               if: steps.cache-composer.outputs.cache-hit != 'true'
 
-            - name: Composer - Self Update
-              run: sudo composer self-update --1
-              if: matrix.sylius == '1.7.*'
-
             - name: Composer - Github Auth
               run: composer config -g github-oauth.github.com ${{ github.token }}
 
@@ -166,13 +162,13 @@ jobs:
 
             - name: Composer - Install plugin
               working-directory: ./sylius
-              run: composer req "${{ env.package-name }}:*" --prefer-source --no-scripts
+              run: composer req "${{ env.package-name }}:*" --prefer-source
 
             - name: Sylius - Update dependencies # need to update sylius version
               working-directory: ./sylius
               run: |
                   composer update --no-progress --no-scripts --prefer-dist
-                  composer update --no-suggest -n -o
+                  composer update --no-suggest --prefer-dist -o
 
             - name: Sylius - Init database
               working-directory: ./sylius
