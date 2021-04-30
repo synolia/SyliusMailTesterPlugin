@@ -124,7 +124,7 @@ final class MailTesterController extends AbstractController
             return $emailData;
         }
 
-        if($form->get('form_subject_chosen')->has('promotionCoupon')){
+        if ($form->get('form_subject_chosen')->has('promotionCoupon')) {
             /** @var PromotionCoupon $promotionCoupon */
             $promotionCoupon = $form->get('form_subject_chosen')->get('promotionCoupon')->getData();
             $emailData['couponCode'] = $promotionCoupon->getCode();

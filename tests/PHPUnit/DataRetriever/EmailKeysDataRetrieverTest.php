@@ -14,7 +14,6 @@ final class EmailKeysDataRetrieverTest extends TestCase
      */
     public function testCreateInstance(array $configuration, array $expectedResult): void
     {
-        self::assertIsArray((new EmailKeysDataRetriever($configuration))->getEmailKeys());
         self::assertSame(
             $expectedResult,
             (new EmailKeysDataRetriever($configuration))->getEmailKeys()

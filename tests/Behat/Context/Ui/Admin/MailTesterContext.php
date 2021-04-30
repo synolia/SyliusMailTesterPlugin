@@ -161,7 +161,6 @@ final class MailTesterContext implements Context
         $currentPage = $this->resolveCurrentPage();
         $fieldValue = $currentPage->getFieldValue($field);
         Assert::string($fieldValue);
-        /** @var string $fieldValue */
         Assert::contains($fieldValue, $text);
     }
 
