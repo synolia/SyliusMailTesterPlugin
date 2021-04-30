@@ -1,6 +1,4 @@
-parameters:
-    git_dir: .
-    bin_dir: vendor/bin
+grumphp:
     ascii:
         failed: ~
         succeeded: ~
@@ -10,9 +8,9 @@ parameters:
         git_blacklist:
             keywords:
                 - 'var_dump'
-                - 'dump('
+                - 'dump\('
                 - 'print_r'
-                - 'die('
+                - 'die\('
                 - 'console\.'
             triggered_by: [php, twig, js]
         jsonlint:
@@ -28,11 +26,10 @@ parameters:
         phpstan:
             level: ~
             configuration: 'ruleset/phpstan.neon'
-        securitychecker: ~
         yamllint: ~
         ecs:
             config: 'ruleset/easy-coding-standard.yml'
-            whitelist_patterns:
+            paths:
                 - src
                 - spec
                 - tests/Behat

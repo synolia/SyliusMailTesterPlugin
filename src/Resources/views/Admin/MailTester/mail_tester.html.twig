@@ -20,7 +20,9 @@
             {{ form_row(form.change_form_subject, {'attr': {'style': 'margin-bottom: 20px'}}) }}
 
             {{ form_widget(form) }}
-            {{ form_row(form._token) }}
+            {% if not form._token.isRendered %}
+                {{ form_row(form._token) }}
+            {% endif %}
         </div>
     {{ form_end(form, {'render_rest': false}) }}
 {% endblock %}

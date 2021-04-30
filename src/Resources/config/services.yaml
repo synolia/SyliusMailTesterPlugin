@@ -29,3 +29,5 @@ services:
     Synolia\SyliusMailTesterPlugin\Menu\AdminMenuListener:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+    Doctrine\Persistence\ObjectManager: '@doctrine.orm.default_entity_manager'

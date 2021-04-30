@@ -6,9 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "fzaninotto/faker": "^1.6",
+        "fakerphp/faker": "^1.13",
         "sylius/sylius": "^1.6",
-        "symfony/framework-bundle": "^4.4",
         "symfony/service-contracts": "^1.1|^2.0"
     },
     "require-dev": {
@@ -26,7 +25,7 @@
         "jakub-onderka/php-parallel-lint": "^1.0",
         "lakion/mink-debug-extension": "^1.2.3",
         "phpmd/phpmd": "^2.7",
-        "phpro/grumphp": "^0.17.0",
+        "phpro/grumphp": "^1.0",
         "phpspec/phpspec": "^6.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.1",
