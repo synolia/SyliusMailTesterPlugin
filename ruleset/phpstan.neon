@@ -2,7 +2,8 @@ parameters:
     level: max
     reportUnmatchedIgnoredErrors: false
     checkMissingIterableValueType: false
-
+    paths:
+        - ../src
     excludes_analyse:
         # Makes PHPStan crash
         - ../src/DependencyInjection/Configuration.php
@@ -15,6 +16,7 @@ parameters:
         - ../spec
 
     ignoreErrors:
-        - '/Parameter #1 $configuration of method Symfony\Component\DependencyInjection\Extension\Extension::processConfiguration() expects Symfony\Component\Config\Definition\ConfigurationInterface, Symfony\Component\Config\Definition\ConfigurationInterface|null given./'
         - '#^Method [\w\\]+Type::render\(\) has parameter \$[\w]+ with no typehint specified.$#'
         - '#Cannot call method [a-zA-Z0-9]+\(\) on Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null.#'
+        - '#Call to method [a-zA-Z0-9]+\(\) on an unknown class Sylius\\Plus#'
+        - '#Parameter \$[a-zA-Z0-9]+ of anonymous function has invalid typehint type Sylius\\Plus#'

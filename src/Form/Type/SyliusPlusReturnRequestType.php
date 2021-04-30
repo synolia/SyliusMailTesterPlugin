@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
 
 final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
 {
-    /** @var string */
+    /** @var array */
     protected static $syliusEmailKeys = [
         'sylius_plus_return_request_confirmation',
         'sylius_plus_return_request_accepted',

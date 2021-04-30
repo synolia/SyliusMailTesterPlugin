@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Synolia\SyliusMailTesterPlugin\Controller;
 
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\PromotionCoupon;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
