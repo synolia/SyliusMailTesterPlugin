@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/packagist/l/synolia/sylius-mail-tester-plugin.svg)](https://github.com/synolia/SyliusMailTesterPlugin/blob/master/LICENSE)
-![Tests](https://github.com/synolia/SyliusMailTesterPlugin/workflows/Tests/badge.svg?branch=master)
+![Tests](https://github.com/synolia/SyliusMailTesterPlugin/workflows/CI/badge.svg?branch=master)
 [![Version](https://img.shields.io/packagist/v/synolia/sylius-mail-tester-plugin.svg)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
 [![Total Downloads](https://poser.pugx.org/synolia/sylius-mail-tester-plugin/downloads)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
 
