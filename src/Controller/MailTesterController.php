@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Controller;
 
-use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\PromotionCoupon;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -28,19 +28,19 @@ final class MailTesterController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
-    /** @var ChannelContextInterface */
-    private $channelContext;
+    /** @var array */
+    private $emails;
 
     public function __construct(
         FormTypeResolver $formTypeResolver,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator,
-        ChannelContextInterface $channelContext
+        array $emails
     ) {
         $this->formTypeResolver = $formTypeResolver;
         $this->flashBag = $flashBag;
         $this->translator = $translator;
-        $this->channelContext = $channelContext;
+        $this->emails = $emails;
     }
 
     public function mailTester(Request $request, SenderInterface $sender): Response
@@ -89,7 +89,9 @@ final class MailTesterController extends AbstractController
             if ($mailTester['subjects'] === ChoiceSubjectsType::EVERY_SUBJECTS) {
                 /** @var AbstractType $formSubject */
                 foreach ($this->formTypeResolver->getAllFormTypes() as $formSubject) {
-                    $sender->send($formSubject->getCode(), [$formData['recipient']], $this->getMailData($form, $formSubject->getCode()));
+                    if (array_key_exists($formSubject->getCode(), $this->emails)) {
+                        $sender->send($formSubject->getCode(), [$formData['recipient']], $this->getMailData($form, $formSubject->getCode()));
+                    }
                 }
             }
             if ($mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {
@@ -119,11 +121,7 @@ final class MailTesterController extends AbstractController
             $emailData = $form->getData()[$type];
         }
 
-        if ($form->has('form_subject_chosen')) {
-            return $emailData;
-        }
-
-        if($form->get('form_subject_chosen')->has('promotionCoupon')){
+        if ($form->has('form_subject_chosen') && $form->get('form_subject_chosen')->has('promotionCoupon')) {
             /** @var PromotionCoupon $promotionCoupon */
             $promotionCoupon = $form->get('form_subject_chosen')->get('promotionCoupon')->getData();
             $emailData['couponCode'] = $promotionCoupon->getCode();

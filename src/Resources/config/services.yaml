@@ -8,6 +8,7 @@ services:
             string $syliusShopUserClass: '%sylius.model.shop_user.class%'
             string $syliusShipmentClass: '%sylius.model.shipment.class%'
             string $syliusPromotionCouponClass: '%sylius.model.promotion_coupon.class%'
+            array $emails: '%sylius.mailer.emails%'
 
     Synolia\SyliusMailTesterPlugin\:
         resource: '../../*'

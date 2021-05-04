@@ -12,13 +12,13 @@ use Webmozart\Assert\Assert;
 
 final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
 {
-    /** @var string */
+    /** @var array */
     protected static $syliusEmailKeys = [
         'sylius_plus_return_request_confirmation',
         'sylius_plus_return_request_accepted',
         'sylius_plus_return_request_rejected',
         'sylius_plus_return_request_resolution_changed',
-        'sylius_plus_return_request_repaired_items_sent'
+        'sylius_plus_return_request_repaired_items_sent',
     ];
 
     /** @var string */
@@ -31,7 +31,7 @@ final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        if( !class_exists(ReturnRequest::class)){
+        if (!class_exists(ReturnRequest::class)) {
             return;
         }
 
@@ -40,7 +40,7 @@ final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
         $builder
             ->add('order', EntityType::class, [
                 'class' => $this->syliusOrderClass,
-                'choice_label' => 'number'
+                'choice_label' => 'number',
             ])
             ->add('returnRequest', EntityType::class, [
                 'class' => ReturnRequest::class,

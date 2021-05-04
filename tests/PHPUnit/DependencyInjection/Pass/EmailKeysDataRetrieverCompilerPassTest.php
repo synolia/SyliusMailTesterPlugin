@@ -15,11 +15,9 @@ final class EmailKeysDataRetrieverCompilerPassTest extends KernelTestCase
 
         /** @var EmailKeysDataRetriever $emailKeysDataRetriever */
         $emailKeysDataRetriever = self::$container->get(EmailKeysDataRetriever::class);
-        self::assertNotNull($emailKeysDataRetriever);
         /** @var array $emailKeys */
         $emailKeys = $emailKeysDataRetriever->getEmailKeys();
 
-        self::assertIsIterable($emailKeys);
         self::assertGreaterThan(0, \count($emailKeys));
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class OrderConfirmationType extends AbstractMultipleKeysType
 {
-    /** @var string */
+    /** @var array */
     protected static $syliusEmailKeys = [
         'order_confirmation',
         'order_confirmation_resent',
