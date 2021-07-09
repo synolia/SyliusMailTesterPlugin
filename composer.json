@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "fakerphp/faker": "^1.9|^1.13",
+        "fakerphp/faker": "^1.9",
         "sylius/sylius": "^1.6",
         "symfony/framework-bundle": "^4.4|^5.2",
         "symfony/service-contracts": "^1.1|^2.0"
