@@ -23,23 +23,31 @@
 * Send all example emails to your email address
 * For each email, you have to select the entity to be used in the template.
 
+## Requirements
+
+| | Version |
+| :--- | :--- |
+| PHP  | 7.3, 7.4, 8.0 |
+| Sylius | 1.9, 1.10 |
+
 ## Installation
 
 1. Add the bundle and dependencies in your composer.json :
     ```shell script
     $ composer require synolia/sylius-mail-tester-plugin
     ```
+
 2. Enable the plugin in your `config/bundles.php` file by add
     ```php
     Synolia\SyliusMailTesterPlugin\SynoliaSyliusMailTesterPlugin::class => ['all' => true],
     ```
 
-3. Import routing in your `config/routes.yaml` file:
+3. Create a new file `config/routes/mailtester.yaml` with:
 
     ```yaml
     synolia_mail_tester:
         resource: "@SynoliaSyliusMailTesterPlugin/Resources/config/admin_routing.yaml"
-        prefix: /admin
+        prefix: '/%sylius_admin.path_name%'
     ```
 
 ## Usage
