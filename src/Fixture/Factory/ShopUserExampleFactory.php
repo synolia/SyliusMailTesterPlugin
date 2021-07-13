@@ -12,8 +12,8 @@ final class ShopUserExampleFactory extends \Sylius\Bundle\CoreBundle\Fixture\Fac
     public function create(array $options = []): ShopUserInterface
     {
         $user = parent::create($options);
-        $user->setPasswordResetToken((Factory::create())->unique()->sha256);
-        $user->setEmailVerificationToken((Factory::create())->unique()->sha256);
+        $user->setPasswordResetToken((Factory::create())->sha256);
+        $user->setEmailVerificationToken((Factory::create())->sha256);
 
         return $user;
     }

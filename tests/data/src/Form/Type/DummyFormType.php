@@ -14,7 +14,7 @@ final class DummyFormType extends AbstractType
 {
     protected static $syliusEmailKey = 'my_dummy_form_type';
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
 
