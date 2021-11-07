@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 final class MailTesterType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

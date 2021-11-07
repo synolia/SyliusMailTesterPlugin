@@ -15,7 +15,7 @@ final class UnitsRefundedType extends AbstractType
     protected static $syliusEmailKey = 'units_refunded';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

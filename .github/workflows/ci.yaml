@@ -195,7 +195,7 @@ jobs:
               if: failure()
               with:
                   name: logs
-                  path: ./sylius/etc/build
+                  path: ./tests/Application/etc/build
 
         services:
             mariadb:

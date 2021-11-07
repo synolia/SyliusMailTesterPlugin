@@ -22,7 +22,7 @@ final class ChoiceSubjectsType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
