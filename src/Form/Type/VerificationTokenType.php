@@ -8,6 +8,8 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 final class VerificationTokenType extends AbstractType
 {
@@ -30,10 +32,18 @@ final class VerificationTokenType extends AbstractType
             ->add('user', EntityType::class, [
                 'class' => $this->syliusShopUserClass,
                 'query_builder' => function (EntityRepository $entityRepository): QueryBuilder {
-                    return $entityRepository->createQueryBuilder('shop_user')
-                        ->where('shop_user.emailVerificationToken IS NOT NULL');
+                    return $entityRepository->createQueryBuilder('shop_user');
                 },
             ])
+            ->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function (FormEvent $event) {
+                    $user = $event->getForm()->get('user')->getData();
+                    if ($user instanceof $this->syliusShopUserClass) {
+                        $user->setEmailVerificationToken('TEST_VERIFICATION_TOKEN');
+                    }
+                }
+            )
         ;
     }
 }
