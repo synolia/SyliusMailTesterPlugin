@@ -38,11 +38,11 @@ final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('order', EntityType::class, [
+            ->add('order', LimitedEntityType::class, [
                 'class' => $this->syliusOrderClass,
                 'choice_label' => 'number',
             ])
-            ->add('returnRequest', EntityType::class, [
+            ->add('returnRequest', LimitedEntityType::class, [
                 'class' => ReturnRequest::class,
                 'choice_label' => static function (ReturnRequestInterface $returnRequestInterface): string {
                     $order = $returnRequestInterface->order();

@@ -25,7 +25,7 @@ final class SyliusPlusLoyaltyPurchaseCouponType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('promotionCoupon', EntityType::class, [
+            ->add('promotionCoupon', LimitedEntityType::class, [
                 'class' => $this->syliusPromotionCouponClass,
                 'choice_label' => 'code',
             ])

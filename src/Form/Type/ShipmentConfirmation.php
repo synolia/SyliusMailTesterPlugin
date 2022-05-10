@@ -31,11 +31,11 @@ final class ShipmentConfirmation extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('order', EntityType::class, [
+            ->add('order', LimitedEntityType::class, [
                 'class' => $this->syliusOrderClass,
                 'choice_label' => 'number',
             ])
-            ->add('shipment', EntityType::class, [
+            ->add('shipment', LimitedEntityType::class, [
                 'class' => $this->syliusShipmentClass,
                 'choice_label' => static function (ShipmentInterface $shipment): string {
                     $order = $shipment->getOrder();

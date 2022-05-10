@@ -24,7 +24,7 @@ final class UserRegistrationType extends AbstractType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('user', EntityType::class, [
+        $builder->add('user', LimitedEntityType::class, [
             'class' => $this->syliusShopUserClass,
         ]);
     }
