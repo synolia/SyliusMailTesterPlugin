@@ -13,22 +13,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LimitedEntityType extends EntityType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
-        $queryBuilderNormalizer = function (Options $options, $queryBuilder) {
+        $queryBuilderNormalizer = function (Options $options, $queryBuilder): QueryBuilder {
             if (\is_callable($queryBuilder)) {
                 $queryBuilder = $queryBuilder($options['em']->getRepository($options['class']));
-
-                if (null !== $queryBuilder && !$queryBuilder instanceof QueryBuilder) {
-                    throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder');
-                }
             } else {
                 /** @var EntityRepository $repository */
                 $repository = $options['em']->getRepository($options['class']);
                 $queryBuilder = $repository->createQueryBuilder('o');
             }
 
+            if (!$queryBuilder instanceof QueryBuilder) {
+                throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder');
+            }
             $queryBuilder->setMaxResults($options['limit']);
 
             return $queryBuilder;

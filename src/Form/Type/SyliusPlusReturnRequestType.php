@@ -6,7 +6,6 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Sylius\Plus\Returns\Domain\Model\ReturnRequest;
 use Sylius\Plus\Returns\Domain\Model\ReturnRequestInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Webmozart\Assert\Assert;
 
