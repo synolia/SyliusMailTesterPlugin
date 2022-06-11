@@ -15,7 +15,7 @@ final class SynoliaSyliusMailTesterPlugin extends Bundle
     use SyliusPluginTrait;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function build(ContainerBuilder $container): void
     {

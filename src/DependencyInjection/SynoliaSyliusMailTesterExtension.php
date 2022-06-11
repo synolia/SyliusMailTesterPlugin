@@ -14,7 +14,7 @@ use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
 final class SynoliaSyliusMailTesterExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function load(array $config, ContainerBuilder $container): void
     {
