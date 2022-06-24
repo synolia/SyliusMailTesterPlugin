@@ -76,7 +76,7 @@ behat-configure: ## Configure Behat
 	(cd ${TEST_DIRECTORY} && cp behat.yml.dist behat.yml)
 	(cd ${TEST_DIRECTORY} && sed -i "s#vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml#vendor/${PLUGIN_NAME}/tests/Behat/Resources/suites.yml#g" behat.yml)
 	(cd ${TEST_DIRECTORY} && sed -i "s#vendor/sylius/sylius/features#vendor/${PLUGIN_NAME}/features#g" behat.yml)
-	(cd ${TEST_DIRECTORY} && echo '    - { resource: "../vendor/${PLUGIN_NAME}/tests/Behat/Resources/services.yaml" }' >> config/services_test.yaml)
+	(cd ${TEST_DIRECTORY} && sed -i '2i \ \ \ \ - { resource: "../vendor/${PLUGIN_NAME}/tests/Behat/Resources/services.yaml" }' config/services_test.yaml)
 
 grumphp: ## Run GrumPHP
 	vendor/bin/grumphp run
