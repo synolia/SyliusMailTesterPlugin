@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
 
 final class MailTesterType extends AbstractType
 {
@@ -40,6 +41,7 @@ final class MailTesterType extends AbstractType
         ]);
 
         if (isset($options['data']['form_every_subjects'])) {
+            /** @var ResolvableFormTypeInterface $subject */
             foreach ($options['data']['form_every_subjects'] as $subject) {
                 $builder->add(
                     $subject->getCode(),
@@ -57,8 +59,11 @@ final class MailTesterType extends AbstractType
         }
 
         if (isset($options['data']['form_subject'])) {
+            /** @var ResolvableFormTypeInterface $subject */
+            $subject = $options['data']['form_subject'];
+
             $builder
-                ->add('form_subject_chosen', get_class($options['data']['form_subject']), ['label' => false])
+                ->add('form_subject_chosen', get_class($subject), ['label' => false])
                 ->add(
                     'submit',
                     SubmitType::class,
