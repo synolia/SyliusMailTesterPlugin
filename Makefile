@@ -37,7 +37,8 @@ sylius: sylius-standard update-dependencies install-plugin install-sylius
 
 sylius-standard:
 	${COMPOSER_ROOT} create-project sylius/sylius-standard ${TEST_DIRECTORY} "~${SYLIUS_VERSION}" --no-install --no-scripts
-	${COMPOSER} require sylius/sylius:"~${SYLIUS_VERSION}" -n
+	${COMPOSER} config allow-plugins.symfony/flex true
+	${COMPOSER} require sylius/sylius:"~${SYLIUS_VERSION}"
 
 update-dependencies:
 	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
@@ -55,7 +56,7 @@ install-plugin:
 	cp -r tests/data/* ${TEST_DIRECTORY}/
 
 install-sylius:
-	${CONSOLE} sylius:install -n -s
+	${CONSOLE} sylius:install -n -s default
 	${YARN} install
 	${YARN} build
 	${CONSOLE} cache:clear
@@ -71,8 +72,6 @@ behat-configure: ## Configure Behat
 	(cd ${TEST_DIRECTORY} && sed -i "s#vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml#vendor/${PLUGIN_NAME}/tests/Behat/Resources/suites.yml#g" behat.yml)
 	(cd ${TEST_DIRECTORY} && sed -i "s#vendor/sylius/sylius/features#vendor/${PLUGIN_NAME}/features#g" behat.yml)
 	(cd ${TEST_DIRECTORY} && sed -i '2i \ \ \ \ - { resource: "../vendor/${PLUGIN_NAME}/tests/Behat/Resources/services.yaml" }' config/services_test.yaml)
-	${CONSOLE} c:c
-	${CONSOLE} s:f:load -n
 
 grumphp: ## Run GrumPHP
 	vendor/bin/grumphp run

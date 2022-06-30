@@ -23,7 +23,6 @@ grumphp:
         phpstan:
             level: ~
             configuration: 'ruleset/phpstan.neon'
-        securitychecker_symfony: ~
         yamllint:
             parse_custom_tags: true
         ecs:
