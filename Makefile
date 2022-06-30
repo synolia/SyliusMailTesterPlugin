@@ -42,12 +42,6 @@ sylius-standard:
 update-dependencies:
 	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
 	${COMPOSER} require --dev donatj/mock-webserver:^2.1 --no-scripts --no-update
-ifeq ($(shell [[ $(SYMFONY_VERSION) == 4.4 && $(PHP_VERSION) == 7.4 ]] && echo true ),true)
-	${COMPOSER} require sylius/admin-api-bundle:1.10 --no-scripts --no-update
-endif
-ifeq ($(SYLIUS_VERSION), 1.8.0)
-	${COMPOSER} update --no-progress --no-scripts --prefer-dist -n
-endif
 	${COMPOSER} require symfony/asset:^${SYMFONY_VERSION} --no-scripts --no-update
 	${COMPOSER} update --no-progress -n
 
