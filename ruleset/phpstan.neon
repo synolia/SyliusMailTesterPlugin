@@ -1,10 +1,10 @@
 parameters:
-    level: max
+    level: 8
     reportUnmatchedIgnoredErrors: false
     checkMissingIterableValueType: false
     paths:
         - ../src
-    excludes_analyse:
+    excludePaths:
         # Makes PHPStan crash
         - ../src/DependencyInjection/Configuration.php
         - ../src/Migrations/
@@ -20,3 +20,4 @@ parameters:
         - '#Cannot call method [a-zA-Z0-9]+\(\) on Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null.#'
         - '#Call to method [a-zA-Z0-9]+\(\) on an unknown class Sylius\\Plus#'
         - '#Parameter \$[a-zA-Z0-9]+ of anonymous function has invalid typehint type Sylius\\Plus#'
+        - "#^Parameter \\$returnRequestInterface of anonymous function has invalid type Sylius\\\\Plus\\\\Returns\\\\Domain\\\\Model\\\\ReturnRequestInterface\\.$#"

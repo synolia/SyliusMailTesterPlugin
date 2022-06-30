@@ -7,4 +7,4 @@ default:
                 - sylius.behat.context.setup.admin_security
                 - synolia_mail_tester_plugin.behat.admin.mail_tester
             filters:
-                tags: '@managing_mail_tester && @ui'
+                tags: '@managing_mail_tester&&@ui'

@@ -25,10 +25,10 @@
 
 ## Requirements
 
-| | Version |
-| :--- | :--- |
-| PHP  | 7.3, 7.4, 8.0 |
-| Sylius | 1.9, 1.10 |
+|        | Version    |
+|:-------|:-----------|
+| PHP    | ^7.4, ^8.0 |
+| Sylius | ^1.9       |
 
 ## Installation
 
