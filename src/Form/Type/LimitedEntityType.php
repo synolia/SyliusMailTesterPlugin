@@ -28,7 +28,8 @@ class LimitedEntityType extends EntityType
             if (!$queryBuilder instanceof QueryBuilder) {
                 throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder');
             }
-            $queryBuilder->setMaxResults($options['limit']);
+            $queryBuilder->setMaxResults($options['limit'])
+                ->orderBy('o.id', 'DESC');
 
             return $queryBuilder;
         };
