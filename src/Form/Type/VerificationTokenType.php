@@ -6,6 +6,7 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Sylius\Component\User\Model\UserInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -38,6 +39,7 @@ final class VerificationTokenType extends AbstractType
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
                 function (FormEvent $event) {
+                    /** @var UserInterface $user */
                     $user = $event->getForm()->get('user')->getData();
                     if ($user instanceof $this->syliusShopUserClass) {
                         $user->setEmailVerificationToken('TEST_VERIFICATION_TOKEN');

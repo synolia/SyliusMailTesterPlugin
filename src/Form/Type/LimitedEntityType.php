@@ -13,6 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LimitedEntityType extends EntityType
 {
+    private const NUMBER_OF_ITEMS = 25;
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -37,7 +39,7 @@ class LimitedEntityType extends EntityType
         $resolver
             ->setNormalizer('query_builder', $queryBuilderNormalizer)
             ->setDefined('limit')
-            ->setDefault('limit', 20)
+            ->setDefault('limit', self::NUMBER_OF_ITEMS)
             ->setAllowedTypes('limit', 'int')
         ;
     }

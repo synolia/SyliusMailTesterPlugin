@@ -23,6 +23,7 @@ grumphp:
         phpstan:
             level: ~
             configuration: 'ruleset/phpstan.neon'
+            use_grumphp_paths: false
         yamllint:
             parse_custom_tags: true
         ecs:
