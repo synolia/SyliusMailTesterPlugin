@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class UserRegistrationType extends AbstractType
@@ -24,7 +23,7 @@ final class UserRegistrationType extends AbstractType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('user', EntityType::class, [
+        $builder->add('user', LimitedEntityType::class, [
             'class' => $this->syliusShopUserClass,
         ]);
     }
