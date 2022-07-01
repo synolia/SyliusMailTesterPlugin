@@ -6,8 +6,11 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Sylius\Component\User\Model\UserInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 final class PasswordTokenResetType extends AbstractMultipleKeysType
 {
@@ -33,10 +36,18 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
             ->add('user', EntityType::class, [
                 'class' => $this->syliusShopUserClass,
                 'query_builder' => function (EntityRepository $entityRepository): QueryBuilder {
-                    return $entityRepository->createQueryBuilder('shop_user')
-                        ->where('shop_user.passwordResetToken IS NOT NULL');
+                    return $entityRepository->createQueryBuilder('shop_user');
                 },
             ])
-        ;
+            ->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function (FormEvent $event) {
+                    /** @var UserInterface $user */
+                    $user = $event->getForm()->get('user')->getData();
+                    if ($user instanceof $this->syliusShopUserClass) {
+                        $user->setPasswordResetToken('TEST_RESET_TOKEN');
+                    }
+                }
+            );
     }
 }
