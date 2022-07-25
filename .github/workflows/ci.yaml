@@ -49,6 +49,9 @@ jobs:
             - name: Composer - Validate composer.json and composer.lock
               run: composer validate --strict
 
+            - name: Composer - Allow all plugins
+              run: composer config allow-plugins true
+
             - name: Composer - Github Auth
               run: composer config -g github-oauth.github.com ${{ github.token }}
 
