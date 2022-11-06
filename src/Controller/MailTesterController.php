@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\Form\Type\AbstractType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\ChoiceSubjectsType;
@@ -22,9 +21,6 @@ final class MailTesterController extends AbstractController
     /** @var FormTypeResolver */
     private $formTypeResolver;
 
-    /** @var FlashBagInterface */
-    private $flashBag;
-
     /** @var TranslatorInterface */
     private $translator;
 
@@ -33,12 +29,10 @@ final class MailTesterController extends AbstractController
 
     public function __construct(
         FormTypeResolver $formTypeResolver,
-        FlashBagInterface $flashBag,
         TranslatorInterface $translator,
         array $emails
     ) {
         $this->formTypeResolver = $formTypeResolver;
-        $this->flashBag = $flashBag;
         $this->translator = $translator;
         $this->emails = $emails;
     }
@@ -74,16 +68,16 @@ final class MailTesterController extends AbstractController
         }
 
         if (isset($mailTester['submit']) && $form->isValid()) {
-            $this->sendMail($mailTester, $sender, $form);
+            $this->sendMail($request, $mailTester, $sender, $form);
         }
 
         return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form->createView()]);
     }
 
-    private function sendMail(array $mailTester, SenderInterface $sender, FormInterface $form): void
+    private function sendMail(Request $request, array $mailTester, SenderInterface $sender, FormInterface $form): void
     {
         try {
-            $this->flashBag->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
+            $request->getSession()->getFlashBag()->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
             $formData = $form->getData();
 
             if ($mailTester['subjects'] === ChoiceSubjectsType::EVERY_SUBJECTS) {
@@ -97,8 +91,8 @@ final class MailTesterController extends AbstractController
             if ($mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {
                 $sender->send($formData['subjects'], [$formData['recipient']], $this->getMailData($form, 'form_subject_chosen'));
             }
-        } catch (\Swift_RfcComplianceException $exception) {
-            $this->flashBag->add('error', $exception->getMessage());
+        } catch (\Exception $exception) {
+            $request->getSession()->getFlashBag()->add('error', $exception->getMessage());
         }
     }
 
