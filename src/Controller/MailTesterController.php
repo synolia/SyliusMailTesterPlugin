@@ -77,7 +77,6 @@ final class MailTesterController extends AbstractController
     private function sendMail(Request $request, array $mailTester, SenderInterface $sender, FormInterface $form): void
     {
         try {
-            $request->getSession()->getFlashBag()->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
             $formData = $form->getData();
 
             if ($mailTester['subjects'] === ChoiceSubjectsType::EVERY_SUBJECTS) {
@@ -91,6 +90,8 @@ final class MailTesterController extends AbstractController
             if ($mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {
                 $sender->send($formData['subjects'], [$formData['recipient']], $this->getMailData($form, 'form_subject_chosen'));
             }
+
+            $request->getSession()->getFlashBag()->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
         } catch (\Exception $exception) {
             $request->getSession()->getFlashBag()->add('error', $exception->getMessage());
         }
