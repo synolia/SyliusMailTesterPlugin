@@ -20,7 +20,7 @@ final class FormTypeResolverTest extends KernelTestCase
         self::bootKernel();
 
         /** @var FormTypeResolver|null $formTypeResolver */
-        $formTypeResolver = self::$container->get(FormTypeResolver::class);
+        $formTypeResolver = static::getContainer()->get(FormTypeResolver::class);
         self::assertInstanceOf(FormTypeResolver::class, $formTypeResolver);
 
         $this->formTypeResolver = $formTypeResolver;

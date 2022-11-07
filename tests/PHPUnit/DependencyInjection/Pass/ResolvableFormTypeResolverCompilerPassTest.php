@@ -14,7 +14,7 @@ final class ResolvableFormTypeResolverCompilerPassTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $formTypeResolver = self::$container->get(FormTypeResolver::class);
+        $formTypeResolver = static::getContainer()->get(FormTypeResolver::class);
         self::assertNotNull($formTypeResolver);
         $reflectionProvider = new \ReflectionClass($formTypeResolver);
         $formTypesProperty = $reflectionProvider->getProperty('formTypes');
