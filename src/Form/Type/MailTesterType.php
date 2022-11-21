@@ -43,6 +43,11 @@ final class MailTesterType extends AbstractType
         if (isset($options['data']['form_every_subjects'])) {
             /** @var ResolvableFormTypeInterface $subject */
             foreach ($options['data']['form_every_subjects'] as $subject) {
+                if (!class_exists('Sylius\Plus\SyliusPlusPlugin')) {
+                    if (\substr($subject->getCode(), 0, 11) === 'sylius_plus') {
+                        continue;
+                    }
+                }
                 $builder->add(
                     $subject->getCode(),
                     get_class($subject),
