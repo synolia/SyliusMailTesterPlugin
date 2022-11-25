@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
+use Sylius\Bundle\CoreBundle\Mailer\Emails;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class OrderConfirmationType extends AbstractMultipleKeysType
 {
     /** @var array<string> */
     protected static $syliusEmailKeys = [
-        'order_confirmation',
-        'order_confirmation_resent',
+        Emails::ORDER_CONFIRMATION,
+        Emails::ORDER_CONFIRMATION_RESENT,
     ];
 
     /** @var string */

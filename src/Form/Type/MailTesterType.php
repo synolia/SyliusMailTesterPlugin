@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
+use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableMultipleFormTypeInterface;
 
 final class MailTesterType extends AbstractType
 {
@@ -48,11 +49,22 @@ final class MailTesterType extends AbstractType
                         continue;
                     }
                 }
-                $builder->add(
-                    $subject->getCode(),
-                    get_class($subject),
-                    ['label_attr' => ['class' => 'ui massive label']]
-                );
+
+                if ($subject instanceof ResolvableMultipleFormTypeInterface) {
+                    foreach ($subject->getCodes() as $code) {
+                        $builder->add(
+                            $code,
+                            get_class($subject),
+                            ['label_attr' => ['class' => 'ui massive label']]
+                        );
+                    }
+                } else {
+                    $builder->add(
+                        $subject->getCode(),
+                        get_class($subject),
+                        ['label_attr' => ['class' => 'ui massive label']]
+                    );
+                }
             }
             $builder->add(
                 'submit',

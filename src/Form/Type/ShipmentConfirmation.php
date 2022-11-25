@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
+use Sylius\Bundle\CoreBundle\Mailer\Emails;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 final class ShipmentConfirmation extends AbstractType
 {
     /** @var string */
-    protected static $syliusEmailKey = 'shipment_confirmation';
+    protected static $syliusEmailKey = Emails::SHIPMENT_CONFIRMATION;
 
     /** @var string */
     private $syliusOrderClass;
