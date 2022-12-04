@@ -116,10 +116,18 @@ final class MailTesterController extends AbstractController
             $emailData = $form->getData()[$type];
         }
 
-        if ($form->has('form_subject_chosen') && $form->get('form_subject_chosen')->has('promotionCoupon')) {
-            /** @var PromotionCoupon $promotionCoupon */
-            $promotionCoupon = $form->get('form_subject_chosen')->get('promotionCoupon')->getData();
-            $emailData['couponCode'] = $promotionCoupon->getCode();
+        if (class_exists('Sylius\Plus\SyliusPlusPlugin')) {
+            if ($form->has('form_subject_chosen') && $form->get('form_subject_chosen')->has('promotionCoupon')) {
+                /** @var PromotionCoupon $promotionCoupon */
+                $promotionCoupon = $form->get('form_subject_chosen')->get('promotionCoupon')->getData();
+                $emailData['couponCode'] = $promotionCoupon->getCode();
+            }
+
+            if ($form->has('subjects') && $form->get('subjects')->getData() === ChoiceSubjectsType::EVERY_SUBJECTS) {
+                /** @var PromotionCoupon $promotionCoupon */
+                $promotionCoupon = $form->get('sylius_plus_loyalty_purchase_coupon')->getData()['promotionCoupon'];
+                $emailData['couponCode'] = $promotionCoupon->getCode();
+            }
         }
 
         $emailData['localeCode'] = $form->get('localeCode')->getData()->getCode();
