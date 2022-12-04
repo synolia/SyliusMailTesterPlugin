@@ -6,6 +6,8 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Sylius\Bundle\CoreBundle\Mailer\Emails;
+use Sylius\Bundle\UserBundle\Mailer\Emails as UserBundleEmails;
 use Sylius\Component\User\Model\UserInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +17,9 @@ use Symfony\Component\Form\FormEvents;
 final class PasswordTokenResetType extends AbstractMultipleKeysType
 {
     protected static $syliusEmailKeys = [
-        'password_reset',
-        'reset_password_token',
-        'reset_password_pin',
+        Emails::PASSWORD_RESET,
+        UserBundleEmails::RESET_PASSWORD_TOKEN,
+        UserBundleEmails::RESET_PASSWORD_PIN,
     ];
 
     /** @var string */

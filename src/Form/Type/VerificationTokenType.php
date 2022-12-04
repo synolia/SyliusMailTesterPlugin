@@ -6,6 +6,7 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Sylius\Bundle\UserBundle\Mailer\Emails;
 use Sylius\Component\User\Model\UserInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,7 @@ use Symfony\Component\Form\FormEvents;
 final class VerificationTokenType extends AbstractType
 {
     /** @var string */
-    protected static $syliusEmailKey = 'verification_token';
+    protected static $syliusEmailKey = Emails::EMAIL_VERIFICATION_TOKEN;
 
     /** @var string */
     private $syliusShopUserClass;

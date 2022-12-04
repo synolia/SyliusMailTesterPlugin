@@ -21,6 +21,14 @@ abstract class AbstractMultipleKeysType extends \Symfony\Component\Form\Abstract
         return static::$syliusEmailKeys[0];
     }
 
+    /**
+     * @return string[]
+     */
+    public function getCodes(): array
+    {
+        return static::$syliusEmailKeys;
+    }
+
     public function getFormType(string $emailKey): ResolvableFormTypeInterface
     {
         return $this;

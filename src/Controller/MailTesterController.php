@@ -15,6 +15,7 @@ use Synolia\SyliusMailTesterPlugin\Form\Type\AbstractType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\ChoiceSubjectsType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\MailTesterType;
 use Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver;
+use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableMultipleFormTypeInterface;
 
 final class MailTesterController extends AbstractController
 {
@@ -82,6 +83,16 @@ final class MailTesterController extends AbstractController
             if ($mailTester['subjects'] === ChoiceSubjectsType::EVERY_SUBJECTS) {
                 /** @var AbstractType $formSubject */
                 foreach ($this->formTypeResolver->getAllFormTypes() as $formSubject) {
+                    if ($formSubject instanceof ResolvableMultipleFormTypeInterface) {
+                        foreach ($formSubject->getCodes() as $code) {
+                            if (array_key_exists($code, $this->emails)) {
+                                $sender->send($code, [$formData['recipient']], $this->getMailData($form, $code));
+                            }
+                        }
+
+                        continue;
+                    }
+
                     if (array_key_exists($formSubject->getCode(), $this->emails)) {
                         $sender->send($formSubject->getCode(), [$formData['recipient']], $this->getMailData($form, $formSubject->getCode()));
                     }
