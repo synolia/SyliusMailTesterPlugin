@@ -11,12 +11,8 @@ final class SyliusPlusLoyaltyPurchaseCouponType extends AbstractType
     /** @var string */
     protected static $syliusEmailKey = 'sylius_plus_loyalty_purchase_coupon';
 
-    /** @var string */
-    private $syliusPromotionCouponClass;
-
-    public function __construct(string $syliusPromotionCouponClass)
+    public function __construct(private string $syliusPromotionCouponClass)
     {
-        $this->syliusPromotionCouponClass = $syliusPromotionCouponClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

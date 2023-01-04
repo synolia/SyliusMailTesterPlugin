@@ -19,23 +19,11 @@ use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableMultipleFormTypeInterface;
 
 final class MailTesterController extends AbstractController
 {
-    /** @var FormTypeResolver */
-    private $formTypeResolver;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var array */
-    private $emails;
-
     public function __construct(
-        FormTypeResolver $formTypeResolver,
-        TranslatorInterface $translator,
-        array $emails
+        private FormTypeResolver $formTypeResolver,
+        private TranslatorInterface $translator,
+        private array $emails,
     ) {
-        $this->formTypeResolver = $formTypeResolver;
-        $this->translator = $translator;
-        $this->emails = $emails;
     }
 
     public function mailTester(Request $request, SenderInterface $sender): Response

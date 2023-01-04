@@ -18,12 +18,8 @@ final class VerificationTokenType extends AbstractType
     /** @var string */
     protected static $syliusEmailKey = Emails::EMAIL_VERIFICATION_TOKEN;
 
-    /** @var string */
-    private $syliusShopUserClass;
-
-    public function __construct(string $syliusShopUserClass)
+    public function __construct(private string $syliusShopUserClass)
     {
-        $this->syliusShopUserClass = $syliusShopUserClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -33,9 +29,7 @@ final class VerificationTokenType extends AbstractType
         $builder
             ->add('user', EntityType::class, [
                 'class' => $this->syliusShopUserClass,
-                'query_builder' => function (EntityRepository $entityRepository): QueryBuilder {
-                    return $entityRepository->createQueryBuilder('shop_user');
-                },
+                'query_builder' => fn (EntityRepository $entityRepository): QueryBuilder => $entityRepository->createQueryBuilder('shop_user'),
             ])
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
@@ -45,7 +39,7 @@ final class VerificationTokenType extends AbstractType
                     if ($user instanceof $this->syliusShopUserClass) {
                         $user->setEmailVerificationToken('TEST_VERIFICATION_TOKEN');
                     }
-                }
+                },
             )
         ;
     }

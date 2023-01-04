@@ -45,7 +45,7 @@ final class MailTesterType extends AbstractType
             /** @var ResolvableFormTypeInterface $subject */
             foreach ($options['data']['form_every_subjects'] as $subject) {
                 if (!class_exists('Sylius\Plus\SyliusPlusPlugin')) {
-                    if (\substr($subject->getCode(), 0, 11) === 'sylius_plus') {
+                    if (str_starts_with($subject->getCode(), 'sylius_plus')) {
                         continue;
                     }
                 }
@@ -54,15 +54,15 @@ final class MailTesterType extends AbstractType
                     foreach ($subject->getCodes() as $code) {
                         $builder->add(
                             $code,
-                            get_class($subject),
-                            ['label_attr' => ['class' => 'ui massive label']]
+                            $subject::class,
+                            ['label_attr' => ['class' => 'ui massive label']],
                         );
                     }
                 } else {
                     $builder->add(
                         $subject->getCode(),
-                        get_class($subject),
-                        ['label_attr' => ['class' => 'ui massive label']]
+                        $subject::class,
+                        ['label_attr' => ['class' => 'ui massive label']],
                     );
                 }
             }
@@ -71,7 +71,7 @@ final class MailTesterType extends AbstractType
                 SubmitType::class,
                 [
                 'attr' => ['class' => 'ui icon primary button'],
-                'label' => 'sylius.ui.admin.mail_tester.submit', ]
+                'label' => 'sylius.ui.admin.mail_tester.submit', ],
             );
         }
 
@@ -80,14 +80,15 @@ final class MailTesterType extends AbstractType
             $subject = $options['data']['form_subject'];
 
             $builder
-                ->add('form_subject_chosen', get_class($subject), ['label' => false])
+                ->add('form_subject_chosen', $subject::class, ['label' => false])
                 ->add(
                     'submit',
                     SubmitType::class,
                     [
                     'attr' => ['class' => 'ui icon primary button'],
-                    'label' => 'sylius.ui.admin.mail_tester.submit', ]
-                );
+                    'label' => 'sylius.ui.admin.mail_tester.submit', ],
+                )
+            ;
         }
 
         $builder->getForm();

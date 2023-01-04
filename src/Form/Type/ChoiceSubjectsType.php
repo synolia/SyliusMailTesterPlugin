@@ -13,12 +13,8 @@ final class ChoiceSubjectsType extends AbstractType
 {
     public const EVERY_SUBJECTS = 'every_subjects';
 
-    /** @var EmailKeysDataRetrieverInterface */
-    private $emailKeysDataRetriever;
-
-    public function __construct(EmailKeysDataRetrieverInterface $emailKeysDataRetriever)
+    public function __construct(private EmailKeysDataRetrieverInterface $emailKeysDataRetriever)
     {
-        $this->emailKeysDataRetriever = $emailKeysDataRetriever;
     }
 
     /**

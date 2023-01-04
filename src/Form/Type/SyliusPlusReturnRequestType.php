@@ -20,12 +20,8 @@ final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
         'sylius_plus_return_request_repaired_items_sent',
     ];
 
-    /** @var string */
-    private $syliusOrderClass;
-
-    public function __construct(string $syliusOrderClass)
+    public function __construct(private string $syliusOrderClass)
     {
-        $this->syliusOrderClass = $syliusOrderClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -51,7 +47,7 @@ final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
                         'state: %s / resolution: %s / order: %s',
                         $returnRequestInterface->state(),
                         $returnRequestInterface->resolution(),
-                        $order->getNumber()
+                        $order->getNumber(),
                     );
                 },
             ])

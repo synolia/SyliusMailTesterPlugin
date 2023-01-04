@@ -15,12 +15,8 @@ final class OrderConfirmationType extends AbstractMultipleKeysType
         Emails::ORDER_CONFIRMATION_RESENT,
     ];
 
-    /** @var string */
-    private $syliusOrderClass;
-
-    public function __construct(string $syliusOrderClass)
+    public function __construct(private string $syliusOrderClass)
     {
-        $this->syliusOrderClass = $syliusOrderClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

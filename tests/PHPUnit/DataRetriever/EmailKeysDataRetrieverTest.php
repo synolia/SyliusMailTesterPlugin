@@ -16,7 +16,7 @@ final class EmailKeysDataRetrieverTest extends TestCase
     {
         self::assertSame(
             $expectedResult,
-            (new EmailKeysDataRetriever($configuration))->getEmailKeys()
+            (new EmailKeysDataRetriever($configuration))->getEmailKeys(),
         );
     }
 

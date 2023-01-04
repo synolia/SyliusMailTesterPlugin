@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 final class FormTypeResolver
 {
     /** @var \Doctrine\Common\Collections\ArrayCollection<int, ResolvableFormTypeInterface> */
-    private $formTypes;
+    private \Doctrine\Common\Collections\ArrayCollection $formTypes;
 
     public function __construct()
     {
@@ -18,10 +18,6 @@ final class FormTypeResolver
 
     public function getFormType(string $emailKey): ResolvableFormTypeInterface
     {
-        if (null === $this->formTypes) {
-            $this->formTypes = new ArrayCollection();
-        }
-
         /** @var ResolvableFormTypeInterface $formType */
         foreach ($this->formTypes as $formType) {
             if ($formType->support($emailKey)) {
@@ -39,10 +35,6 @@ final class FormTypeResolver
 
     public function addFormType(ResolvableFormTypeInterface $resolvableForm): void
     {
-        if (null === $this->formTypes) {
-            $this->formTypes = new ArrayCollection();
-        }
-
         if (false === $this->formTypes->contains($resolvableForm)) {
             $this->formTypes->add($resolvableForm);
         }

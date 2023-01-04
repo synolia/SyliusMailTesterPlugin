@@ -28,7 +28,7 @@
 
 |        | Version    |
 |:-------|:-----------|
-| PHP    | ^7.4, ^8.0 |
+| PHP    | ^8.0 |
 | Sylius | ^1.10      |
 
 ## Installation
