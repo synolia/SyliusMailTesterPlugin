@@ -23,7 +23,7 @@ final class ContactRequestType extends AbstractType
             ->add(
                 $builder->create('data', FormType::class, ['by_reference' => true, 'label' => false])
                     ->add('email', EmailType::class)
-                    ->add('message', TextType::class)
+                    ->add('message', TextType::class),
             )
         ;
     }

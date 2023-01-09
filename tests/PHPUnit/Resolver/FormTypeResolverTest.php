@@ -13,8 +13,7 @@ use Synolia\SyliusMailTesterPlugin\Resolver\NoResolvableFormTypeFoundException;
 
 final class FormTypeResolverTest extends KernelTestCase
 {
-    /** @var \Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver */
-    private $formTypeResolver;
+    private \Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver $formTypeResolver;
 
     protected function setUp(): void
     {
@@ -36,7 +35,7 @@ final class FormTypeResolverTest extends KernelTestCase
     public function testResolverDidNotFoundSupportedFormType(): void
     {
         $this->expectExceptionObject(new NoResolvableFormTypeFoundException(
-            'No resolvable form found for email my-dummy-not-existing-form-type.'
+            'No resolvable form found for email my-dummy-not-existing-form-type.',
         ));
 
         $this->formTypeResolver->getFormType('my-dummy-not-existing-form-type');

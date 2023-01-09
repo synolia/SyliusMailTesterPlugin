@@ -22,12 +22,8 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
         UserBundleEmails::RESET_PASSWORD_PIN,
     ];
 
-    /** @var string */
-    private $syliusShopUserClass;
-
-    public function __construct(string $syliusShopUserClass)
+    public function __construct(private string $syliusShopUserClass)
     {
-        $this->syliusShopUserClass = $syliusShopUserClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -37,9 +33,7 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
         $builder
             ->add('user', EntityType::class, [
                 'class' => $this->syliusShopUserClass,
-                'query_builder' => function (EntityRepository $entityRepository): QueryBuilder {
-                    return $entityRepository->createQueryBuilder('shop_user');
-                },
+                'query_builder' => fn (EntityRepository $entityRepository): QueryBuilder => $entityRepository->createQueryBuilder('shop_user'),
             ])
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
@@ -49,7 +43,8 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
                     if ($user instanceof $this->syliusShopUserClass) {
                         $user->setPasswordResetToken('TEST_RESET_TOKEN');
                     }
-                }
-            );
+                },
+            )
+        ;
     }
 }

@@ -37,7 +37,7 @@ final class MailTesterContext implements Context
         CurrentPageResolverInterface $currentPageResolver,
         EmailKeysDataRetriever $emailKeysDataRetriever,
         NotificationCheckerInterface $notificationChecker,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
     ) {
         $this->indexPage = $indexPage;
         $this->currentPageResolver = $currentPageResolver;
@@ -183,7 +183,7 @@ final class MailTesterContext implements Context
     {
         $this->notificationChecker->checkNotification(
             $this->translator->trans('sylius.ui.admin.mail_tester.success'),
-            NotificationType::success()
+            NotificationType::success(),
         );
     }
 }

@@ -14,16 +14,8 @@ final class ShipmentConfirmation extends AbstractType
     /** @var string */
     protected static $syliusEmailKey = Emails::SHIPMENT_CONFIRMATION;
 
-    /** @var string */
-    private $syliusOrderClass;
-
-    /** @var string */
-    private $syliusShipmentClass;
-
-    public function __construct(string $syliusOrderClass, string $syliusShipmentClass)
+    public function __construct(private string $syliusOrderClass, private string $syliusShipmentClass)
     {
-        $this->syliusOrderClass = $syliusOrderClass;
-        $this->syliusShipmentClass = $syliusShipmentClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -47,7 +39,7 @@ final class ShipmentConfirmation extends AbstractType
                         '%s / order: %s, tracking: %s',
                         $shipment->getId(),
                         $order->getNumber(),
-                        $shipment->getTracking() ?? 'NOT SET'
+                        $shipment->getTracking() ?? 'NOT SET',
                     );
                 },
             ])

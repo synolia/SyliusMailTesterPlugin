@@ -11,12 +11,8 @@ final class UserRegistrationType extends AbstractType
     /** @var string */
     protected static $syliusEmailKey = 'user_registration';
 
-    /** @var string */
-    private $syliusShopUserClass;
-
-    public function __construct(string $syliusShopUserClass)
+    public function __construct(private string $syliusShopUserClass)
     {
-        $this->syliusShopUserClass = $syliusShopUserClass;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

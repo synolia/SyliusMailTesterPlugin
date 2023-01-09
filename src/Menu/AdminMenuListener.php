@@ -21,6 +21,7 @@ final class AdminMenuListener
             ])
             ->setAttribute('type', 'link')
             ->setLabel('sylius.menu.admin.main.configuration.mail_tester')
-            ->setLabelAttribute('icon', 'mail');
+            ->setLabelAttribute('icon', 'mail')
+        ;
     }
 }
