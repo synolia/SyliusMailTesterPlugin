@@ -49,9 +49,9 @@ else
 endif
 
 update-dependencies:
-	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
+	${COMPOSER} config extra.symfony.require "~${SYMFONY_VERSION}"
 	${COMPOSER} require --dev donatj/mock-webserver:^2.1 --no-scripts --no-update
-	${COMPOSER} require symfony/asset:^${SYMFONY_VERSION} --no-scripts --no-update
+	${COMPOSER} require symfony/asset:~${SYMFONY_VERSION} --no-scripts --no-update
 	${COMPOSER} update --no-progress -n
 
 install-plugin:
