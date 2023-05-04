@@ -17,11 +17,10 @@ jobs:
             matrix:
                 php:
                     - 8.0
-                    - 8.1
                     - 8.2
                 symfony:
                     - '5.4.*'
-                    - '6.1.*'
+                    - '6.2.*'
         env:
             APP_ENV: test
         steps:
@@ -48,9 +47,6 @@ jobs:
             -
                 name: 'Composer - Validate composer.json and composer.lock'
                 run: 'composer validate --strict'
-            -
-                name: 'Composer - Allow all plugins'
-                run: 'composer config allow-plugins true'
             -
                 name: 'Composer - Github Auth'
                 run: 'composer config -g github-oauth.github.com ${{ github.token }}'
