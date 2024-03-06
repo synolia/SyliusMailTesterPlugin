@@ -8,6 +8,7 @@ parameters:
         # Makes PHPStan crash
         - ../src/DependencyInjection/Configuration.php
         - ../src/Migrations/
+        - ../src/Form/Type/Plugin/InvoicingPlugin/InvoiceType.php
 
         # Test dependencies
         - ../tests/Application
