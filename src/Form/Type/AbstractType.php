@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
+use Symfony\Component\Form\FormInterface;
 use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
 
 abstract class AbstractType extends \Symfony\Component\Form\AbstractType implements ResolvableFormTypeInterface
@@ -24,5 +25,13 @@ abstract class AbstractType extends \Symfony\Component\Form\AbstractType impleme
     public function getFormType(string $emailKey): ResolvableFormTypeInterface
     {
         return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAttachments(FormInterface $form): array
+    {
+        return [];
     }
 }

@@ -87,7 +87,7 @@ final class MailTesterController extends AbstractController
                 }
             }
             if ($mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {
-                $sender->send($formData['subjects'], [$formData['recipient']], $this->getMailData($form, 'form_subject_chosen'));
+                $sender->send($formData['subjects'], [$formData['recipient']], $this->getMailData($form, 'form_subject_chosen'), $this->getAttachments($form));
             }
 
             $request->getSession()->getFlashBag()->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
@@ -133,5 +133,15 @@ final class MailTesterController extends AbstractController
         $emailData['channel'] = $form->get('channel')->getData();
 
         return $emailData;
+    }
+
+    private function getAttachments(FormInterface $form): array
+    {
+        $formType = $form->getData()['form_subject'];
+        if (!$formType instanceof AbstractType) {
+            return [];
+        }
+
+        return $formType->getAttachments($form->get('form_subject_chosen'));
     }
 }

@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Synolia\SyliusMailTesterPlugin\DependencyInjection\Pass\ResolvableFormTypeResolverCompilerPass;
+use Synolia\SyliusMailTesterPlugin\Form\Type\Plugin\InvoicingPlugin\InvoiceType;
 use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
 
 final class SynoliaSyliusMailTesterExtension extends Extension
@@ -26,5 +27,9 @@ final class SynoliaSyliusMailTesterExtension extends Extension
             ->registerForAutoconfiguration(ResolvableFormTypeInterface::class)
             ->addTag(ResolvableFormTypeResolverCompilerPass::TAG_ID)
         ;
+
+        if (!class_exists('Sylius\InvoicingPlugin\SyliusInvoicingPlugin')) {
+            $container->removeDefinition(InvoiceType::class);
+        }
     }
 }
