@@ -7,6 +7,7 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 use Sylius\Bundle\CoreBundle\Mailer\Emails;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class ShipmentConfirmation extends AbstractType
@@ -14,8 +15,12 @@ final class ShipmentConfirmation extends AbstractType
     /** @var string */
     protected static $syliusEmailKey = Emails::SHIPMENT_CONFIRMATION;
 
-    public function __construct(private string $syliusOrderClass, private string $syliusShipmentClass)
-    {
+    public function __construct(
+        #[Autowire(param: 'sylius.model.order.class')]
+        private readonly string $syliusOrderClass,
+        #[Autowire(param: 'sylius.model.shipment.class')]
+        private readonly string $syliusShipmentClass,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

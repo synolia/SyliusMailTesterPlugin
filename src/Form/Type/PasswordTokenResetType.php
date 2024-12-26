@@ -10,6 +10,7 @@ use Sylius\Bundle\CoreBundle\Mailer\Emails;
 use Sylius\Bundle\UserBundle\Mailer\Emails as UserBundleEmails;
 use Sylius\Component\User\Model\UserInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -22,8 +23,10 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
         UserBundleEmails::RESET_PASSWORD_PIN,
     ];
 
-    public function __construct(private string $syliusShopUserClass)
-    {
+    public function __construct(
+        #[Autowire(param: 'sylius.model.shop_user.class')]
+        private readonly string $syliusShopUserClass,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -37,7 +40,7 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
             ])
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
-                function (FormEvent $event) {
+                function (FormEvent $event): void {
                     /** @var UserInterface $user */
                     $user = $event->getForm()->get('user')->getData();
                     if ($user instanceof $this->syliusShopUserClass) {

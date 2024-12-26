@@ -6,10 +6,10 @@ namespace Synolia\SyliusMailTesterPlugin\Resolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-final class FormTypeResolver
+final readonly class FormTypeResolver
 {
-    /** @var \Doctrine\Common\Collections\ArrayCollection<int, ResolvableFormTypeInterface> */
-    private \Doctrine\Common\Collections\ArrayCollection $formTypes;
+    /** @var ArrayCollection<int, ResolvableFormTypeInterface> */
+    private ArrayCollection $formTypes;
 
     public function __construct()
     {

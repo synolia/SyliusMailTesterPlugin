@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\DataRetriever;
 
-final class EmailKeysDataRetriever implements EmailKeysDataRetrieverInterface
+final readonly class EmailKeysDataRetriever implements EmailKeysDataRetrieverInterface
 {
     /** @var array<int, string> */
     private array $emailKeys;

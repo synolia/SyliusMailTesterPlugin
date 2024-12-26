@@ -13,8 +13,9 @@ final class ChoiceSubjectsType extends AbstractType
 {
     public const EVERY_SUBJECTS = 'every_subjects';
 
-    public function __construct(private EmailKeysDataRetrieverInterface $emailKeysDataRetriever)
-    {
+    public function __construct(
+        private readonly EmailKeysDataRetrieverInterface $emailKeysDataRetriever,
+    ) {
     }
 
     /**
@@ -30,7 +31,7 @@ final class ChoiceSubjectsType extends AbstractType
         $resolver->setDefaults(['choices' => $emailKeys]);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

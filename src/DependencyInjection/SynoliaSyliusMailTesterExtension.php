@@ -18,9 +18,9 @@ final class SynoliaSyliusMailTesterExtension extends Extension
     /**
      * @inheritdoc
      */
-    public function load(array $config, ContainerBuilder $container): void
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
 
         $loader->load('services.yaml');
 

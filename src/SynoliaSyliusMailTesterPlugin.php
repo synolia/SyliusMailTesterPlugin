@@ -24,4 +24,9 @@ final class SynoliaSyliusMailTesterPlugin extends Bundle
         $container->addCompilerPass(new ResolvableFormTypeResolverCompilerPass());
         $container->addCompilerPass(new EmailKeysDataRetrieverCompilerPass());
     }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
 }

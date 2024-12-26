@@ -1,5 +1,0 @@
-sylius_admin_mail_tester:
-    path: /mail/tester
-    methods: [GET|POST]
-    defaults:
-        _controller: Synolia\SyliusMailTesterPlugin\Controller\MailTesterController::mailTester
