@@ -1,5 +1,5 @@
 controllers:
     resource:
-        path: ../src/Controller/
+        path: ../../Controller/
         namespace: Synolia\SyliusMailTesterPlugin\Controller
     type: attribute
