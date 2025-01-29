@@ -7,9 +7,12 @@ namespace Synolia\SyliusMailTesterPlugin\Controller;
 use Sylius\Component\Core\Model\PromotionCoupon;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\Form\Type\AbstractType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\ChoiceSubjectsType;
@@ -17,15 +20,18 @@ use Synolia\SyliusMailTesterPlugin\Form\Type\MailTesterType;
 use Synolia\SyliusMailTesterPlugin\Resolver\FormTypeResolver;
 use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableMultipleFormTypeInterface;
 
+#[AsController]
 final class MailTesterController extends AbstractController
 {
     public function __construct(
-        private FormTypeResolver $formTypeResolver,
-        private TranslatorInterface $translator,
-        private array $emails,
+        private readonly FormTypeResolver $formTypeResolver,
+        private readonly TranslatorInterface $translator,
+        #[Autowire(param: 'sylius.mailer.emails')]
+        private readonly array $emails,
     ) {
     }
 
+    #[Route('/mail/tester', name: 'sylius_admin_mail_tester', methods: ['GET', 'POST'])]
     public function mailTester(Request $request, SenderInterface $sender): Response
     {
         /** @var array $mailTester */
@@ -53,14 +59,14 @@ final class MailTesterController extends AbstractController
                 'recipient' => $mailTester['recipient'],
             ]);
 
-            return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form->createView()]);
+            return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form]);
         }
 
         if (isset($mailTester['submit']) && $form->isValid()) {
             $this->sendMail($request, $mailTester, $sender, $form);
         }
 
-        return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form->createView()]);
+        return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form]);
     }
 
     private function sendMail(Request $request, array $mailTester, SenderInterface $sender, FormInterface $form): void
@@ -98,13 +104,11 @@ final class MailTesterController extends AbstractController
 
     private function getEveryForms(string $recipient): FormInterface
     {
-        $form = $this->createForm(MailTesterType::class, [
+        return $this->createForm(MailTesterType::class, [
             'form_every_subjects' => $this->formTypeResolver->getAllFormTypes(),
             'subject' => ChoiceSubjectsType::EVERY_SUBJECTS,
             'recipient' => $recipient,
         ]);
-
-        return $form;
     }
 
     private function getMailData(FormInterface $form, string $type): array

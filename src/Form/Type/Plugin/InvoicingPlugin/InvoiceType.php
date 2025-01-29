@@ -18,8 +18,8 @@ final class InvoiceType extends AbstractType
     protected static $syliusEmailKey = 'invoice_generated';
 
     public function __construct(
-        private InvoiceFileProviderInterface $invoiceFileProvider,
-        #[Autowire('%sylius_invoicing.pdf_generator.enabled%')]
+        private readonly InvoiceFileProviderInterface $invoiceFileProvider,
+        #[Autowire(param: 'sylius_invoicing.pdf_generator.enabled')]
         private $hasEnabledPdfFileGenerator,
     ) {
     }

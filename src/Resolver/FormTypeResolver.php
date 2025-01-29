@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Resolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
-final class FormTypeResolver
+final readonly class FormTypeResolver
 {
-    /** @var \Doctrine\Common\Collections\ArrayCollection<int, ResolvableFormTypeInterface> */
-    private \Doctrine\Common\Collections\ArrayCollection $formTypes;
-
-    public function __construct()
-    {
-        $this->formTypes = new ArrayCollection();
+    public function __construct(
+        #[AutowireIterator(ResolvableFormTypeInterface::class)]
+        private iterable $formTypes,
+    ) {
     }
 
     public function getFormType(string $emailKey): ResolvableFormTypeInterface
@@ -31,12 +29,5 @@ final class FormTypeResolver
     public function getAllFormTypes(): iterable
     {
         return $this->formTypes;
-    }
-
-    public function addFormType(ResolvableFormTypeInterface $resolvableForm): void
-    {
-        if (false === $this->formTypes->contains($resolvableForm)) {
-            $this->formTypes->add($resolvableForm);
-        }
     }
 }

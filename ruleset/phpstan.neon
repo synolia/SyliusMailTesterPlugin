@@ -1,22 +1,18 @@
 parameters:
     level: 8
     reportUnmatchedIgnoredErrors: false
-    checkMissingIterableValueType: false
     paths:
         - ../src
     excludePaths:
         # Makes PHPStan crash
-        - ../src/DependencyInjection/Configuration.php
-        - ../src/Migrations/
         - ../src/Form/Type/Plugin/InvoicingPlugin/InvoiceType.php
-
-        # Test dependencies
-        - ../tests/Application
 
         # PHPSpec
         - ../spec
 
     ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics
         - '#^Method [\w\\]+Type::render\(\) has parameter \$[\w]+ with no typehint specified.$#'
         - '#Cannot call method [a-zA-Z0-9]+\(\) on Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null.#'
         - '#Call to method [a-zA-Z0-9]+\(\) on an unknown class Sylius\\Plus#'

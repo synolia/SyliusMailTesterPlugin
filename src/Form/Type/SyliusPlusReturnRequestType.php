@@ -6,6 +6,7 @@ namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Sylius\Plus\Returns\Domain\Model\ReturnRequest;
 use Sylius\Plus\Returns\Domain\Model\ReturnRequestInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormBuilderInterface;
 use Webmozart\Assert\Assert;
 
@@ -20,8 +21,10 @@ final class SyliusPlusReturnRequestType extends AbstractMultipleKeysType
         'sylius_plus_return_request_repaired_items_sent',
     ];
 
-    public function __construct(private string $syliusOrderClass)
-    {
+    public function __construct(
+        #[Autowire(param: 'sylius.model.order.class')]
+        private readonly string $syliusOrderClass,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Synolia\SyliusMailTesterPlugin\Form\Type;
 
 use Sylius\Bundle\CoreBundle\Mailer\Emails;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class OrderConfirmationType extends AbstractMultipleKeysType
@@ -15,8 +16,10 @@ final class OrderConfirmationType extends AbstractMultipleKeysType
         Emails::ORDER_CONFIRMATION_RESENT,
     ];
 
-    public function __construct(private string $syliusOrderClass)
-    {
+    public function __construct(
+        #[Autowire(param: 'sylius.model.order.class')]
+        private readonly string $syliusOrderClass,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

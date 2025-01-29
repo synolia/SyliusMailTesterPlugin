@@ -2,33 +2,7 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        public: false
-        bind:
-            string $syliusOrderClass: '%sylius.model.order.class%'
-            string $syliusShopUserClass: '%sylius.model.shop_user.class%'
-            string $syliusShipmentClass: '%sylius.model.shipment.class%'
-            string $syliusPromotionCouponClass: '%sylius.model.promotion_coupon.class%'
-            array $emails: '%sylius.mailer.emails%'
 
     Synolia\SyliusMailTesterPlugin\:
         resource: '../../*'
-        exclude: '../../{Controller,Fixture,SynoliaSyliusMailTesterPlugin.php}'
-
-    Synolia\SyliusMailTesterPlugin\Controller\:
-        resource: '../../Controller/*'
-        tags: ['controller.service_arguments']
-
-    Synolia\SyliusMailTesterPlugin\Fixture\ShopUserFixture:
-        class: Synolia\SyliusMailTesterPlugin\Fixture\ShopUserFixture
-        tags: ['sylius_fixtures.fixture']
-        arguments:
-            $exampleFactory: '@Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory'
-
-    Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory:
-        class: Synolia\SyliusMailTesterPlugin\Fixture\Factory\ShopUserExampleFactory
-
-    Synolia\SyliusMailTesterPlugin\Menu\AdminMenuListener:
-        tags:
-            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
-
-    Doctrine\Persistence\ObjectManager: '@doctrine.orm.default_entity_manager'
+        exclude: '../../{Fixture,SynoliaSyliusMailTesterPlugin.php}'
