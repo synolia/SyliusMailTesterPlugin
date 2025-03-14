@@ -1,0 +1,7 @@
+{% from '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{{ breadcrumbs([
+    {name: 'sylius.ui.dashboard', url: path('sylius_admin_dashboard'), active: false},
+    {name: 'sylius.menu.admin.main.configuration.mail_tester'|trans, active: false},
+    {name: 'sylius.ui.edit'|trans, active: false},
+]) }}
