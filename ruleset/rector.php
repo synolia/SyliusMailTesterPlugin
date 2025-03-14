@@ -22,11 +22,8 @@ return RectorConfig::configure()
     )
     ->withTypeCoverageLevel(0)
     ->withSets([
-        SymfonySetList::SYMFONY_60,
-        SymfonySetList::SYMFONY_61,
-        SymfonySetList::SYMFONY_62,
-        SymfonySetList::SYMFONY_63,
-        SymfonySetList::SYMFONY_64,
+        SymfonySetList::SYMFONY_71,
+        SymfonySetList::SYMFONY_72,
         SetList::CODE_QUALITY,
         SetList::DEAD_CODE,
     ]);

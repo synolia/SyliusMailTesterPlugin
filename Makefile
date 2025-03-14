@@ -7,9 +7,9 @@ CONSOLE=cd ${TEST_DIRECTORY} && php bin/console -e test
 COMPOSER=cd ${TEST_DIRECTORY} && composer
 YARN=cd ${TEST_DIRECTORY} && yarn
 
-SYLIUS_VERSION=1.14.0
-SYMFONY_VERSION=6.4
-PHP_VERSION=8.2
+SYLIUS_VERSION=2.0
+SYMFONY_VERSION=7.1
+PHP_VERSION=8.3
 PLUGIN_NAME=synolia/sylius-mail-tester-plugin
 
 ###
@@ -87,7 +87,7 @@ grumphp: ## Run GrumPHP
 	vendor/bin/grumphp run
 
 help: SHELL=/bin/bash
-help: ## Dislay this help
+help: ## Display this help
 	@IFS=$$'\n'; for line in `grep -h -E '^[a-zA-Z_#-]+:?.*?##.*$$' $(MAKEFILE_LIST)`; do if [ "$${line:0:2}" = "##" ]; then \
 	echo $$line | awk 'BEGIN {FS = "## "}; {printf "\033[33m    %s\033[0m\n", $$2}'; else \
 	echo $$line | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m%s\n", $$1, $$2}'; fi; \
