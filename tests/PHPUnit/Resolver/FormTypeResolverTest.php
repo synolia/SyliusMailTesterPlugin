@@ -59,7 +59,6 @@ final class FormTypeResolverTest extends KernelTestCase
         yield 'Order confirmation resend' => [Emails::ORDER_CONFIRMATION_RESENT, \Synolia\SyliusMailTesterPlugin\Form\Type\OrderConfirmationType::class];
         yield 'Password reset' => [Emails::PASSWORD_RESET, \Synolia\SyliusMailTesterPlugin\Form\Type\PasswordTokenResetType::class];
         yield 'Password reset token' => [UserBundleEmails::RESET_PASSWORD_TOKEN, \Synolia\SyliusMailTesterPlugin\Form\Type\PasswordTokenResetType::class];
-        yield 'Password reset pin' => [UserBundleEmails::RESET_PASSWORD_PIN, \Synolia\SyliusMailTesterPlugin\Form\Type\PasswordTokenResetType::class];
         yield 'Shipment confirmation' => [Emails::SHIPMENT_CONFIRMATION, \Synolia\SyliusMailTesterPlugin\Form\Type\ShipmentConfirmation::class];
         yield 'User Registration' => [Emails::USER_REGISTRATION, \Synolia\SyliusMailTesterPlugin\Form\Type\UserRegistrationType::class];
         yield 'Token verification' => [UserBundleEmails::EMAIL_VERIFICATION_TOKEN, \Synolia\SyliusMailTesterPlugin\Form\Type\VerificationTokenType::class];
