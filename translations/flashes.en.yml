@@ -1,0 +1,3 @@
+synolia_mail_tester:
+    admin:
+        success: Mail successfully sent
