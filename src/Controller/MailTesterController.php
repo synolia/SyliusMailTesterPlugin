@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\Form\Type\AbstractType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\ChoiceSubjectsType;
 use Synolia\SyliusMailTesterPlugin\Form\Type\MailTesterType;
@@ -25,7 +24,6 @@ final class MailTesterController extends AbstractController
 {
     public function __construct(
         private readonly FormTypeResolver $formTypeResolver,
-        private readonly TranslatorInterface $translator,
         #[Autowire(param: 'sylius.mailer.emails')]
         private readonly array $emails,
     ) {
@@ -96,7 +94,7 @@ final class MailTesterController extends AbstractController
                 $sender->send($formData['subjects'], [$formData['recipient']], $this->getMailData($form, 'form_subject_chosen'), $this->getAttachments($form));
             }
 
-            $request->getSession()->getFlashBag()->add('success', $this->translator->trans('sylius.ui.admin.mail_tester.success'));
+            $request->getSession()->getFlashBag()->add('success', 'synolia_mail_tester.admin.success');
         } catch (\Exception $exception) {
             $request->getSession()->getFlashBag()->add('error', $exception->getMessage());
         }
