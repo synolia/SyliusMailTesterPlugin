@@ -11,6 +11,7 @@ use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 use Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPageInterface;
 use Webmozart\Assert\Assert;
@@ -24,6 +25,7 @@ final class MailTesterContext implements Context
         private EmailKeysDataRetriever $emailKeysDataRetriever,
         #[Autowire('@sylius.behat.notification_checker.admin')]
         private NotificationCheckerInterface $notificationChecker,
+        private TranslatorInterface $translator,
     ) {
     }
 
@@ -163,7 +165,7 @@ final class MailTesterContext implements Context
     public function theEmailHasBeenSuccessfullySend(): void
     {
         $this->notificationChecker->checkNotification(
-            'Mail successfully sent',
+            $this->translator->trans('sylius.ui.admin.mail_tester.success'),
             NotificationType::success(),
         );
     }
