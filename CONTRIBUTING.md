@@ -6,9 +6,9 @@ From the plugin root directory, run the following commands:
 $ make install -e SYLIUS_VERSION=XX SYMFONY_VERSION=YY PHP_VERSION=ZZ
 ```
 
-Default values : XX=1.12.0 and YY=6.1 and ZZ=8.1
+Default values : XX=2.0 and YY=7.1 and ZZ=8.3
 
-To be able to setup the plugin database, remember to configure you database credentials
+To be able to set up the plugin database, remember to configure you database credentials
 in `install/Application/.env.local` and `install/Application/.env.test.local`.
 
 To reset test environment:
@@ -22,7 +22,7 @@ $ make reset
 
 - GrumPHP (see configuration [grumphp.yml](grumphp.yml).)
 
-  GrumPHP is executed by the Git pre-commit hook, but you can launch it manualy with :
+  GrumPHP is executed by the Git pre-commit hook, but you can launch it manually with :
 
   ```bash
   $ make grumphp

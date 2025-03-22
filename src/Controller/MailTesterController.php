@@ -59,14 +59,14 @@ final class MailTesterController extends AbstractController
                 'recipient' => $mailTester['recipient'],
             ]);
 
-            return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form]);
+            return $this->render('@SynoliaSyliusMailTesterPlugin/admin/mailtester/layout.html.twig', ['form' => $form]);
         }
 
         if (isset($mailTester['submit']) && $form->isValid()) {
             $this->sendMail($request, $mailTester, $sender, $form);
         }
 
-        return $this->render('@SynoliaSyliusMailTesterPlugin/Admin/MailTester/mail_tester.html.twig', ['form' => $form]);
+        return $this->render('@SynoliaSyliusMailTesterPlugin/admin/mailtester/layout.html.twig', ['form' => $form]);
     }
 
     private function sendMail(Request $request, array $mailTester, SenderInterface $sender, FormInterface $form): void

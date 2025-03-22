@@ -1,7 +1,5 @@
 services:
     Sylius\Behat\Service\SharedStorageInterface: '@sylius.behat.shared_storage'
-    Sylius\Behat\Service\Resolver\CurrentPageResolverInterface: '@sylius.behat.current_page_resolver'
-    Sylius\Behat\Service\NotificationCheckerInterface: '@sylius.behat.notification_checker'
 
     synolia_mail_tester_plugin.behat.page.admin.mail_tester.index:
         class: Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPage

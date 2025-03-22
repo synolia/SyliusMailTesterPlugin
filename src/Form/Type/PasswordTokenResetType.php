@@ -20,7 +20,6 @@ final class PasswordTokenResetType extends AbstractMultipleKeysType
     protected static $syliusEmailKeys = [
         Emails::PASSWORD_RESET,
         UserBundleEmails::RESET_PASSWORD_TOKEN,
-        UserBundleEmails::RESET_PASSWORD_PIN,
     ];
 
     public function __construct(

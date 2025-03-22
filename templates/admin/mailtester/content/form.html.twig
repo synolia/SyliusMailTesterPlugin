@@ -1,0 +1,25 @@
+{% if form is not defined %}
+    {% set form = hookable_metadata.context.form %}
+{% endif %}
+
+{% form_theme form '@SyliusAdmin/shared/form_theme.html.twig' %}
+
+<div class="container-xl">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <input type="hidden" name="_method" value="POST" />
+            {{ form_row(form.recipient) }}
+            {{ form_row(form.subjects) }}
+            {{ form_row(form.localeCode) }}
+            {{ form_row(form.channel) }}
+            {{ form_row(form.change_form_subject, {'attr': {'class': 'mb-3'}}) }}
+
+            {{ form_widget(form) }}
+            {% if not form._token.isRendered %}
+                {{ form_row(form._token) }}
+            {% endif %}
+        </div>
+    </div>
+    {{ form_end(form, {'render_rest': false}) }}
+</div>
