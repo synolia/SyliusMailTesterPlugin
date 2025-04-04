@@ -1,0 +1,2 @@
+imports:
+    - { resource: "@SynoliaSyliusMailTesterPlugin/config/twig_hooks/**/*.yaml" }

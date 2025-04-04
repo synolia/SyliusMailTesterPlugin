@@ -10,6 +10,7 @@ use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusMailTesterPlugin\DataRetriever\EmailKeysDataRetriever;
 use Tests\Synolia\SyliusMailTesterPlugin\Behat\Page\Admin\MailTester\IndexPageInterface;
@@ -17,33 +18,15 @@ use Webmozart\Assert\Assert;
 
 final class MailTesterContext implements Context
 {
-    /** @var IndexPageInterface */
-    private $indexPage;
-
-    /** @var CurrentPageResolverInterface */
-    private $currentPageResolver;
-
-    /** @var EmailKeysDataRetriever */
-    private $emailKeysDataRetriever;
-
-    /** @var NotificationCheckerInterface */
-    private $notificationChecker;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
     public function __construct(
-        IndexPageInterface $indexPage,
-        CurrentPageResolverInterface $currentPageResolver,
-        EmailKeysDataRetriever $emailKeysDataRetriever,
-        NotificationCheckerInterface $notificationChecker,
-        TranslatorInterface $translator,
+        private IndexPageInterface $indexPage,
+        #[Autowire('@sylius.behat.current_page_resolver')]
+        private CurrentPageResolverInterface $currentPageResolver,
+        private EmailKeysDataRetriever $emailKeysDataRetriever,
+        #[Autowire('@sylius.behat.notification_checker.admin')]
+        private NotificationCheckerInterface $notificationChecker,
+        private TranslatorInterface $translator,
     ) {
-        $this->indexPage = $indexPage;
-        $this->currentPageResolver = $currentPageResolver;
-        $this->emailKeysDataRetriever = $emailKeysDataRetriever;
-        $this->notificationChecker = $notificationChecker;
-        $this->translator = $translator;
     }
 
     /**
