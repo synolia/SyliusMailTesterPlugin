@@ -21,7 +21,7 @@ jobs:
                 sylius:
                     - 2.0.0
                 symfony:
-                    - 7.1
+                    - 6.4
                     - 7.2
                 node:
                     - 20.x
