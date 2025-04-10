@@ -4,5 +4,5 @@ services:
         autoconfigure: true
 
     Synolia\SyliusMailTesterPlugin\:
-        resource: '../../*'
-        exclude: '../../{Fixture,SynoliaSyliusMailTesterPlugin.php}'
+        resource: '../src/*'
+        exclude: '../src/{Fixture,SynoliaSyliusMailTesterPlugin.php}'

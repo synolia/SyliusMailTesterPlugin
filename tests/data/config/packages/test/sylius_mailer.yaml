@@ -4,4 +4,4 @@ sylius_mailer:
             enabled: false
         my_dummy_form_type:
             subject: dummy.test
-            template: "@SyliusShop/Email/contactRequest.html.twig"
+            template: "@SyliusCore/Email/contactRequest.html.twig"

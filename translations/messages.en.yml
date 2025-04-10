@@ -5,8 +5,8 @@ sylius:
                 recipient: Recipient
                 submit: Send
                 change_form_subject: Choose subject
-                success: Mail successfully send
-                every_subjects: Every subjects
+                success: Mail successfully sent
+                every_subjects: All subjects
     menu:
         admin:
             main:
