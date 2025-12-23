@@ -9,7 +9,6 @@ return static function (ECSConfig $ecsConfig): void {
 
     $ecsConfig->paths([
         dirname(__DIR__, 1) . '/src',
-        dirname(__DIR__, 1) . '/tests/Behat',
         dirname(__DIR__, 1) . '/tests/PHPUnit',
     ]);
 
