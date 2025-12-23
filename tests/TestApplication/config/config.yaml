@@ -20,3 +20,11 @@ sylius_mailer:
         my_dummy_form_type:
             subject: dummy.test
             template: "@SyliusCore/Email/contactRequest.html.twig"
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Tests\Synolia\SyliusMailTesterPlugin\:
+        resource: '../src/*'
