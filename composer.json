@@ -17,23 +17,10 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
-        "behat/behat": "3.19.0",
-        "behat/mink-selenium2-driver": "1.7.0",
-        "dmore/behat-chrome-extension": "1.4.0",
-        "dmore/chrome-mink-driver": "2.9.3",
-        "friends-of-behat/mink": "1.11.0",
-        "friends-of-behat/mink-browserkit-driver": "1.6.2",
-        "friends-of-behat/mink-debug-extension": "2.1.0",
-        "friends-of-behat/mink-extension": "2.7.5",
-        "friends-of-behat/page-object-extension": "0.3.2",
-        "friends-of-behat/symfony-extension": "2.6.0",
-        "friends-of-behat/variadic-extension": "1.6.0",
-        "friendsoftwig/twigcs": "6.4.0",
-        "j13k/yaml-lint": "1.1.6",
+        "friendsoftwig/twigcs": "6.6.0",
         "php-parallel-lint/php-parallel-lint": "1.4.0",
         "phpmd/phpmd": "2.15.0",
         "phpro/grumphp": "2.11.0",
-        "phpspec/phpspec": "7.5.0",
         "phpstan/extension-installer": "1.4.3",
         "phpstan/phpstan": "2.1.8",
         "phpstan/phpstan-doctrine": "2.0.2",
@@ -46,17 +33,22 @@
         "seld/jsonlint": "1.11.0",
         "squizlabs/php_codesniffer": "3.11.3",
         "sylius-labs/coding-standard": "4.4.0",
-        "symfony/browser-kit": "7.2.4",
-        "symfony/debug-bundle": "^7.2.0",
-        "symfony/dotenv": "7.2.0",
-        "symfony/lock": "7.2.4",
-        "symfony/web-profiler-bundle": "7.2.4"
+        "sylius/test-application": "~2.1.0@alpha",
+        "symfony/browser-kit": "^6.4 | ^7.4 | ^8.0",
+        "symfony/debug-bundle": "^6.4 | ^7.4 | ^8.0",
+        "symfony/dotenv": "^6.4 | ^7.4 | ^8.0",
+        "symfony/lock": "^6.4 | ^7.4 | ^8.0",
+        "symfony/web-profiler-bundle": "^6.4 | ^7.4 | ^8.0"
     },
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Synolia\\SyliusMailTesterPlugin\\": "src/",
-            "Tests\\Synolia\\SyliusMailTesterPlugin\\": "tests/"
+            "Synolia\\SyliusMailTesterPlugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Synolia\\SyliusMailTesterPlugin\\": ["tests/", "tests/TestApplication/src/"]
         }
     },
     "config": {
@@ -66,10 +58,46 @@
             "php-http/discovery": true,
             "phpro/grumphp": true,
             "phpstan/extension-installer": true,
+            "symfony/flex": true,
+            "symfony/runtime": true,
             "symfony/thanks": true
         }
     },
     "scripts": {
-        "fix-ecs": "ecs check -c ruleset/ecs.php --fix --ansi --clear-cache  ."
+        "ecs": "ecs check -c ruleset/ecs.php --ansi --clear-cache",
+        "fix-ecs": "@ecs --fix",
+        "phpmd": "phpmd src ansi ruleset/.php_md.xml",
+        "phpstan": "phpstan analyse src -c ruleset/phpstan.neon",
+        "phpunit": "phpunit tests/PHPUnit --colors=always",
+        "tests": [
+            "@ecs",
+            "@phpmd",
+            "@phpstan",
+            "@phpunit"
+        ],
+        "test-application:install": [
+            "vendor/bin/console doctrine:database:drop --force --if-exists -n",
+            "vendor/bin/console doctrine:database:create -n",
+            "vendor/bin/console doctrine:migration:migrate -n",
+            "vendor/bin/console sylius:payment:generate-key -n",
+            "vendor/bin/console sylius:fixtures:load -n",
+            "yarn --cwd vendor/sylius/test-application install --force",
+            "yarn --cwd vendor/sylius/test-application build",
+            "vendor/bin/console assets:install --symlink -n vendor/sylius/test-application/public",
+            "cp tests/TestApplication/public/.htaccess vendor/sylius/test-application/public"
+        ],
+        "test-application:front": [
+            "yarn --cwd vendor/sylius/test-application install --force",
+            "yarn --cwd vendor/sylius/test-application build"
+        ]
+    },
+    "extra": {
+        "public-dir": "vendor/sylius/test-application/public",
+        "symfony": {
+            "require": "^6.4"
+        }
+    },
+    "conflict": {
+        "sylius/test-application": "v2.0.0-ALPHA.1"
     }
 }
