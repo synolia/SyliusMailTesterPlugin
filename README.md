@@ -33,7 +33,7 @@
 |        | Version |
 |:-------|:--------|
 | PHP    | ^8.2    |
-| Sylius | ~2.0    |
+| Sylius | ^2.0    |
 
 ## Installation
 
@@ -53,6 +53,14 @@
     synolia_mail_tester:
         resource: "@SynoliaSyliusMailTesterPlugin/config/routes/admin_routing.yaml"
         prefix: '/%sylius_admin.path_name%'
+    ```
+
+4. Import the plugin configuration:
+
+    ```yaml
+    # config/packages/mailtester.yaml
+    imports:
+        - { resource: "@SynoliaSyliusMailTesterPlugin/config/config.yaml" }
     ```
 
 ## Usage
