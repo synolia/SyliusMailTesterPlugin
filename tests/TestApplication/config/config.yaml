@@ -1,0 +1,30 @@
+imports:
+    - { resource: "@SynoliaSyliusMailTesterPlugin/config/config.yaml" }
+
+# Uncomment if need to override entities with trait for example
+#doctrine:
+#    orm:
+#        entity_managers:
+#            default:
+#                mappings:
+#                    TestApplication:
+#                        is_bundle: false
+#                        type: attribute
+#                        dir: '%kernel.project_dir%/../../../tests/TestApplication/src/Entity'
+#                        prefix: Tests\Synolia\SyliusMailTesterPlugin
+
+sylius_mailer:
+    emails:
+        verification_token:
+            enabled: false
+        my_dummy_form_type:
+            subject: dummy.test
+            template: "@SyliusCore/Email/contactRequest.html.twig"
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Tests\Synolia\SyliusMailTesterPlugin\:
+        resource: '../src/*'

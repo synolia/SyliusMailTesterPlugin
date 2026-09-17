@@ -7,9 +7,6 @@ parameters:
         # Makes PHPStan crash
         - ../src/Form/Type/Plugin/InvoicingPlugin/InvoiceType.php
 
-        # PHPSpec
-        - ../spec
-
     ignoreErrors:
         - identifier: missingType.iterableValue
         - identifier: missingType.generics
