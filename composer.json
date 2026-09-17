@@ -64,9 +64,10 @@
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "symfony/thanks": true,
+            "php-http/discovery": true,
             "phpro/grumphp": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "symfony/thanks": true
         }
     },
     "scripts": {

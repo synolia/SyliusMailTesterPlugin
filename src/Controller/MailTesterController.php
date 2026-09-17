@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusMailTesterPlugin\Controller;
 
+use Sylius\Bundle\CoreBundle\Mailer\Emails;
 use Sylius\Component\Core\Model\PromotionCoupon;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -135,6 +136,10 @@ final class MailTesterController extends AbstractController
 
         $emailData['localeCode'] = $form->get('localeCode')->getData()->getCode();
         $emailData['channel'] = $form->get('channel')->getData();
+
+        if (Emails::ADMIN_PASSWORD_RESET === $type || Emails::ADMIN_PASSWORD_RESET === $form->get('subjects')->getData()) {
+            $emailData['resetUrl'] = null;
+        }
 
         return $emailData;
     }
