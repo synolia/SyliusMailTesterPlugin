@@ -20,6 +20,6 @@ final readonly class EmailKeysDataRetriever implements EmailKeysDataRetrieverInt
 
     public function getEmailKeys(): array
     {
-        return $this->emailKeys ?? [];
+        return $this->emailKeys;
     }
 }
