@@ -1,53 +1,55 @@
-[![License](https://img.shields.io/packagist/l/synolia/sylius-mail-tester-plugin.svg)](https://github.com/synolia/SyliusMailTesterPlugin/blob/main/LICENSE)
+[![License](https://badgen.net/github/license/synolia/SyliusMailTesterPlugin)](https://github.com/synolia/SyliusMailTesterPlugin/blob/main/LICENSE)
 [![CI - Analysis](https://github.com/synolia/SyliusMailTesterPlugin/actions/workflows/analysis.yaml/badge.svg?branch=main)](https://github.com/synolia/SyliusMailTesterPlugin/actions/workflows/analysis.yaml)
 [![CI - Sylius](https://github.com/synolia/SyliusMailTesterPlugin/actions/workflows/sylius.yaml/badge.svg?branch=main)](https://github.com/synolia/SyliusMailTesterPlugin/actions/workflows/sylius.yaml)
-[![Version](https://img.shields.io/packagist/v/synolia/sylius-mail-tester-plugin.svg)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
+[![Version](https://badgen.net/github/tag/synolia/SyliusMailTesterPlugin?label=Version)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
 [![Total Downloads](https://poser.pugx.org/synolia/sylius-mail-tester-plugin/downloads)](https://packagist.org/packages/synolia/sylius-mail-tester-plugin)
 
-<p align="center">
-    <a href="https://sylius.com" target="_blank">
-        <picture>
-         <source media="(prefers-color-scheme: dark)" srcset="https://media.sylius.com/sylius-logo-800-dark.png">
-         <source media="(prefers-color-scheme: light)" srcset="https://media.sylius.com/sylius-logo-800.png">
-         <img alt="Sylius Logo." src="https://media.sylius.com/sylius-logo-800.png">
-        </picture>
-    </a>
-</p>
+# Sylius Mail Tester Plugin
 
-<h1 align="center">Mail Tester Plugin</h1>
+Check how your emails are rendered: send any Sylius email to your own mailbox from the admin panel, filled with real data from your store.
 
-<p align="center">Test how your emails are rendered by sending them to your email from your Sylius admin panel.</p>
+![Mail tester page in the admin panel](etc/capture.png)
 
-![Capture](/etc/capture.png "Capture")
-![SentEmail](/etc/capture-email.png "Sent Email")
+![Email received from the mail tester](etc/capture-email.png)
 
 ## Features
 
-* See a list of all sylius emails
-* Send example email one by one to your email address
-* Send all example emails to your email address
-* For each email, you have to select the entity to be used in the template.
+- **Every configured email** is listed: all the emails declared in `sylius_mailer`, including your own.
+- **Real data**: pick the order, shipment, customer… used to render the template, plus the locale and the channel.
+- **One email or all of them**: send the selected email, or every email at once.
+- **Plugin emails** supported out of the box: [Refund Plugin](https://github.com/Sylius/RefundPlugin), [Invoicing Plugin](https://github.com/Sylius/InvoicingPlugin) (with the invoice attached) and Sylius Plus.
+- **Extensible**: add a form type to send your custom emails with their variables.
 
 ## Requirements
 
-|        | Version |
-|:-------|:--------|
-| PHP    | ^8.2    |
-| Sylius | ^2.0    |
+|         | Version                                                  |
+|:--------|:---------------------------------------------------------|
+| PHP     | ^8.2 (8.4+ for Symfony 8)                                |
+| Sylius  | ^2.0                                                     |
+| Symfony | ^6.4 \|\| ^7.4 \|\| ^8.0 (Symfony 8 requires Sylius ^2.3) |
 
 ## Installation
 
-1. Add the bundle and dependencies in your composer.json :
-    ```shell script
-    $ composer require synolia/sylius-mail-tester-plugin
+1. Require the plugin:
+
+    ```shell
+    composer require synolia/sylius-mail-tester-plugin
     ```
 
-2. Enable the plugin in your `config/bundles.php` file by add
+2. Register the bundle in `config/bundles.php` if Symfony Flex did not do it:
+
     ```php
     Synolia\SyliusMailTesterPlugin\SynoliaSyliusMailTesterPlugin::class => ['all' => true],
     ```
 
-3. Create a new file `config/routes/mailtester.yaml` with:
+3. Import the configuration in `config/packages/synolia_sylius_mail_tester.yaml`:
+
+    ```yaml
+    imports:
+        - { resource: "@SynoliaSyliusMailTesterPlugin/config/config.yaml" }
+    ```
+
+4. Import the admin routes in `config/routes/synolia_sylius_mail_tester.yaml`:
 
     ```yaml
     synolia_mail_tester:
@@ -55,33 +57,31 @@
         prefix: '/%sylius_admin.path_name%'
     ```
 
-4. Import the plugin configuration:
+5. Clear the cache:
 
-    ```yaml
-    # config/packages/mailtester.yaml
-    imports:
-        - { resource: "@SynoliaSyliusMailTesterPlugin/config/config.yaml" }
+    ```shell
+    php bin/console cache:clear
     ```
 
 ## Usage
 
-* Log into admin panel
-* Click on `Mail tester` in the Configuration section in main menu
-* Enter the email address that will receive the example email template
-* Select the email you would like to be sent.
-* Click on `Choose subject`
-* Fill empty boxes and select your entities.
-* Click the Submit button.
+1. In the admin panel, open **Configuration > Mail tester**.
+2. Enter the email address that will receive the emails.
+3. Select an email, or *All subjects* to send every email, then click **Choose subject**.
+4. Fill in the fields and select the entities used to render the template.
+5. Click **Send**.
 
-## Allow sending your custom emails
-In order to be able to send a custom email with variables, you have to add a form type that will add those variables to the form.
-The important part is that your Form Type must implement ResolvableFormTypeInterface in order to be discovered by our FormTypeResolver.
+## Sending your custom emails
+
+To send a custom email with its variables, create a form type implementing `ResolvableFormTypeInterface`.
+Each field of the form is a variable of the template. With autoconfiguration, the plugin discovers the form type automatically.
+
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Synolia\SyliusMailTesterPlugin\Form\Type;
+namespace App\Form\Type;
 
 use Sylius\Component\Core\Model\Order;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -89,20 +89,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Synolia\SyliusMailTesterPlugin\Resolver\ResolvableFormTypeInterface;
 
-public class CustomEmailType extends AbstractType implements ResolvableFormTypeInterface
+final class CustomEmailType extends AbstractType implements ResolvableFormTypeInterface
 {
-    /** @var string */
-    private const SYLIUS_EMAIL_KEY = 'custom_email'; //this should match your email identification key in sylius_mailer.yaml.
+    // Code of the email in the sylius_mailer configuration
+    private const SYLIUS_EMAIL_KEY = 'custom_email';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        parent::buildForm($builder, $options);
-
-        /**
-         * The key 'order' represent the name of the variable in your template.
-         * Then you specify the type of the variable.
-         * In this example we provide a list of all available orders.
-         */
+        // Renders the template with an "order" variable, chosen among the orders of the store
         $builder->add('order', EntityType::class, [
             'class' => Order::class,
             'choice_label' => 'number',
@@ -128,11 +122,21 @@ public class CustomEmailType extends AbstractType implements ResolvableFormTypeI
 
 ## Development
 
-See [How to contribute](CONTRIBUTING.md).
+The plugin is developed and tested with the [Sylius Test Application](https://github.com/Sylius/TestApplication):
+
+```shell
+make install    # optionally: make install -e SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1
+make phpunit
+APP_ENV=test symfony server:start -d
+```
+
+Use `vendor/bin/console` to run Symfony commands against the test application.
+
+See [How to contribute](CONTRIBUTING.md) for more details (database configuration, versions, ...).
 
 ## License
 
-This library is under the MIT license.
+This plugin is released under the [MIT license](LICENSE).
 
 ## Credits
 
