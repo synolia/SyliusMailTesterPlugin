@@ -30,8 +30,8 @@ jobs:
                     -
                         php: 8.4
                         sylius: 2.3.0
-                        symfony: 8.0
-                        node: 20.x
+                        symfony: '8.0'
+                        node: 24.x
         env:
             APP_ENV: test
             package-name: synolia/sylius-mail-tester-plugin
