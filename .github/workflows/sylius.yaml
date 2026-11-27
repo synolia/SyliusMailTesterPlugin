@@ -25,7 +25,7 @@ jobs:
                 symfony:
                     - 6.4
                     - 7.4
-                    - '8.0'
+                    - '8.1'
                 include:
                     -
                         sylius: 2.2.0
@@ -38,17 +38,17 @@ jobs:
                     # Symfony 8 requires Sylius >= 2.3
                     -
                         sylius: 2.2.0
-                        symfony: '8.0'
+                        symfony: '8.1'
                     # Sylius 2.3 requires PHP >= 8.3
                     -
                         sylius: 2.3.0
                         php: 8.2
                     # Symfony 8 requires PHP >= 8.4
                     -
-                        symfony: '8.0'
+                        symfony: '8.1'
                         php: 8.2
                     -
-                        symfony: '8.0'
+                        symfony: '8.1'
                         php: 8.3
         env:
             APP_ENV: test
@@ -89,6 +89,12 @@ jobs:
             -
                 name: 'Composer - Github Auth'
                 run: 'composer config -g github-oauth.github.com ${{ github.token }}'
+            -
+                # Flex must be loaded before dependencies are resolved to apply extra.symfony.require
+                name: 'Composer - Install Symfony Flex globally'
+                run: |
+                    composer global config --no-plugins allow-plugins.symfony/flex true
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^2.4"
             -
                 name: 'Yarn - Get cache directory'
                 id: yarn-cache
