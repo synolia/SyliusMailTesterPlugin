@@ -32,7 +32,7 @@ sylius: install-sylius
 
 install-sylius:
 	@echo "Installing Sylius ${SYLIUS_VERSION} using TestApplication"
-	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
+	${COMPOSER} config extra.symfony.require "${SYMFONY_VERSION}.*"
 	${COMPOSER} require --dev sylius/test-application:"~${SYLIUS_VERSION}@alpha" -n --no-update
 	${COMPOSER} update -n
 	${COMPOSER} test-application:install
