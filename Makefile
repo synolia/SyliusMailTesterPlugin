@@ -2,7 +2,7 @@
 SHELL=/bin/bash
 CONSOLE=vendor/bin/console
 COMPOSER=composer
-SYLIUS_VERSION=2.1.0
+SYLIUS_VERSION=2.2.0
 SYMFONY_VERSION=6.4
 PLUGIN_NAME=synolia/sylius-mail-tester-plugin
 
@@ -10,7 +10,7 @@ PLUGIN_NAME=synolia/sylius-mail-tester-plugin
 ### DEVELOPMENT
 ### ¯¯¯¯¯¯¯¯¯¯¯
 
-install: sylius ## Install all dependencies with [SYLIUS_VERSION=2.1.0] [SYMFONY_VERSION=6.4]
+install: sylius ## Install all dependencies with [SYLIUS_VERSION=2.2.0] [SYMFONY_VERSION=6.4]
 .PHONY: install
 
 reset: ## Remove dependencies
@@ -33,8 +33,8 @@ sylius: install-sylius
 install-sylius:
 	@echo "Installing Sylius ${SYLIUS_VERSION} using TestApplication"
 	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
-	${COMPOSER} install
-	${COMPOSER} require --dev sylius/test-application:"~${SYLIUS_VERSION}@alpha" -n -W
+	${COMPOSER} require --dev sylius/test-application:"~${SYLIUS_VERSION}@alpha" -n --no-update
+	${COMPOSER} update -n
 	${COMPOSER} test-application:install
 
 

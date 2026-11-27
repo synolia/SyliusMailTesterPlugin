@@ -35,8 +35,10 @@ final class MailTesterController extends AbstractController
     #[Route('/mail/tester', name: 'sylius_admin_mail_tester', methods: ['GET', 'POST'])]
     public function mailTester(Request $request, SenderInterface $sender): Response
     {
-        /** @var array $mailTester */
-        $mailTester = $request->get('mail_tester', ['subjects' => null]);
+        $mailTester = $request->request->all('mail_tester');
+        if ([] === $mailTester) {
+            $mailTester = ['subjects' => null];
+        }
 
         $form = $this->createForm(MailTesterType::class);
         if ($mailTester['subjects'] !== null && $mailTester['subjects'] !== ChoiceSubjectsType::EVERY_SUBJECTS) {

@@ -20,13 +20,18 @@ jobs:
                     - 8.3
                     - 8.4
                 sylius:
-                    - 2.1.0
                     - 2.2.0
                 symfony:
                     - 6.4
                     - 7.4
                 node:
                     - 20.x
+                include:
+                    -
+                        php: 8.4
+                        sylius: 2.3.0
+                        symfony: 8.0
+                        node: 20.x
         env:
             APP_ENV: test
             package-name: synolia/sylius-mail-tester-plugin
@@ -80,6 +85,7 @@ jobs:
             -
                 name: 'Install Sylius-Standard and Plugin'
                 run: 'make install -e SYLIUS_VERSION=${{ matrix.sylius }} SYMFONY_VERSION=${{ matrix.symfony }}'
+                id: end-of-setup-sylius
             -
                 name: 'Doctrine Schema Validate - Run'
                 run: 'php vendor/bin/console doctrine:schema:validate --skip-sync'
