@@ -6,7 +6,7 @@ of the test application lives in `tests/TestApplication/`.
 
 To be able to set up the plugin database, remember to configure your database credentials
 in `tests/TestApplication/.env.local` and `tests/TestApplication/.env.test.local`
-(default: `mysql://root@127.0.0.1/test_application_%kernel.environment%`).
+(default: `mysql://root@127.0.0.1/synolia_mail_tester_plugin_%kernel.environment%`).
 In the `test` environment, only `.env.test.local` is read.
 
 From the plugin root directory, run the following command:
@@ -21,7 +21,7 @@ To test against specific Sylius and Symfony versions (as the CI does), run:
 $ make install -e SYLIUS_VERSION=XX SYMFONY_VERSION=YY
 ```
 
-e.g. `SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1`. Defaults: `SYLIUS_VERSION=2.2.0` and `SYMFONY_VERSION=6.4`.
+e.g. `SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1`. Without them, the latest versions allowed by `composer.json` are installed.
 
 It installs Composer dependencies and the frontend assets of the test application,
 then creates the database, runs the migrations and loads the fixtures (`test` environment by default).
@@ -60,7 +60,7 @@ $ vendor/bin/console debug:router -e test
 - Using `test` environment:
 
     ```bash
-    $ APP_ENV=test symfony server:start -d
+    $ make serve
     ```
 
 - Using `dev` environment:

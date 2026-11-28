@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Synolia\SyliusMailTesterPlugin\Form\Type;
+namespace Tests\Synolia\SyliusMailTesterPlugin\TestApplication\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
