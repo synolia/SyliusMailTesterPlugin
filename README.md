@@ -22,11 +22,12 @@ Check how your emails are rendered: send any Sylius email to your own mailbox fr
 
 ## Requirements
 
-|         | Version                                                  |
-|:--------|:---------------------------------------------------------|
-| PHP     | ^8.2 (8.4+ for Symfony 8)                                |
-| Sylius  | ^2.0                                                     |
-| Symfony | ^6.4 \|\| ^7.4 \|\| ^8.0 (Symfony 8 requires Sylius ^2.3) |
+|         | Version                                              |
+|:--------|:-----------------------------------------------------|
+| PHP     | ^8.2 (8.3+ for Sylius 2.3, 8.4+ for Symfony 8)       |
+| Sylius  | ^2.2                                                 |
+| Symfony | ^7.4 \|\| ^8.0 (Symfony 8 requires Sylius 2.3)       |
+| Node    | 22, 24 or 26 (Sylius 2.3 requires ^22.13 or >= 24)   |
 
 ## Installation
 
