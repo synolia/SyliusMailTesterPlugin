@@ -23,9 +23,6 @@ grumphp:
             no-progress-bar: true
         phpmnd:
             directory: src
-        twigcs:
-            path: 'src/'
-            severity: error
         phpcs:
             standard: "ruleset"
             warning_severity: 0
