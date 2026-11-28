@@ -33,13 +33,10 @@
         "seld/jsonlint": "1.11.0",
         "squizlabs/php_codesniffer": "3.13.6",
         "sylius-labs/coding-standard": "4.4.0",
-        "sylius/test-application": "~2.2.0@alpha",
+        "sylius/test-application": "^2.2@alpha",
         "symfony/browser-kit": "^6.4 | ^7.4 | ^8.0",
         "symfony/css-selector": "^6.4 | ^7.4 | ^8.0",
-        "symfony/debug-bundle": "^6.4 | ^7.4 | ^8.0",
-        "symfony/dotenv": "^6.4 | ^7.4 | ^8.0",
-        "symfony/lock": "^6.4 | ^7.4 | ^8.0",
-        "symfony/web-profiler-bundle": "^6.4 | ^7.4 | ^8.0"
+        "symfony/lock": "^6.4 | ^7.4 | ^8.0"
     },
     "prefer-stable": true,
     "autoload": {
@@ -49,7 +46,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Synolia\\SyliusMailTesterPlugin\\": ["tests/", "tests/TestApplication/src/"]
+            "Tests\\Synolia\\SyliusMailTesterPlugin\\": "tests/",
+            "Tests\\Synolia\\SyliusMailTesterPlugin\\TestApplication\\": "tests/TestApplication/src/"
         }
     },
     "config": {
@@ -76,29 +74,17 @@
             "@phpstan",
             "@phpunit"
         ],
-        "test-application:install": [
-            "vendor/bin/console doctrine:database:drop --force --if-exists -n",
-            "vendor/bin/console doctrine:database:create -n",
-            "vendor/bin/console doctrine:migration:migrate -n",
-            "vendor/bin/console sylius:payment:generate-key -n",
-            "vendor/bin/console sylius:fixtures:load -n",
-            "yarn --cwd vendor/sylius/test-application install --force",
-            "yarn --cwd vendor/sylius/test-application build",
-            "vendor/bin/console assets:install --symlink -n vendor/sylius/test-application/public",
-            "cp tests/TestApplication/public/.htaccess vendor/sylius/test-application/public"
+        "post-install-cmd": [
+            "php bin/create_node_symlink.php"
         ],
-        "test-application:front": [
-            "yarn --cwd vendor/sylius/test-application install --force",
-            "yarn --cwd vendor/sylius/test-application build"
+        "post-update-cmd": [
+            "php bin/create_node_symlink.php"
+        ],
+        "post-create-project-cmd": [
+            "php bin/create_node_symlink.php"
         ]
     },
     "extra": {
-        "public-dir": "vendor/sylius/test-application/public",
-        "symfony": {
-            "require": "^6.4"
-        }
-    },
-    "conflict": {
-        "sylius/test-application": "v2.0.0-ALPHA.1"
+        "public-dir": "vendor/sylius/test-application/public"
     }
 }

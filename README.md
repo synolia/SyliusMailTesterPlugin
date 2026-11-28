@@ -125,9 +125,9 @@ final class CustomEmailType extends AbstractType implements ResolvableFormTypeIn
 The plugin is developed and tested with the [Sylius Test Application](https://github.com/Sylius/TestApplication):
 
 ```shell
-make install    # optionally: make install -e SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1
+make install    # optionally: make install SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1
 make phpunit
-APP_ENV=test symfony server:start -d
+make serve      # Symfony local web server on the test application
 ```
 
 Use `vendor/bin/console` to run Symfony commands against the test application.
